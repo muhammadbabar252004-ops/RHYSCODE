@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>RhysCode — Permissão de Microfone</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@700;800&display=swap');
+
+    :root {
+      --bg:        #060d18;
+      --bg-card:   #0a1325;
+      --bg-inner:  #0e1a30;
+      --accent:    #00bbff;
+      --accent-b:  #99e5ff;
+      --accent-rgb:0, 187, 255;
+      --secondary: #22ffbb;
+      --sec-rgb:   34, 255, 187;
+      --border:    rgba(0,187,255,0.18);
+      --border-2:  rgba(0,187,255,0.38);
+      --tx:        #99e5ff;
+      --tx-muted:  rgba(153,229,255,0.6);
+      --err:       #ff5577;
+      --ok:        #00e5a0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* scanlines sutis */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 99; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 4px,
+        rgba(0,0,0,0.018) 4px, rgba(0,0,0,0.018) 8px
+      );
+    }
+
+    /* aurora de fundo */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(var(--accent-rgb), 0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(var(--sec-rgb), 0.05) 0%, transparent 65%);
+    }
+
+    .shell {
+      position: relative; z-index: 1;
+      width: 100%;
+      min-height: 100%;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 20px;
+    }
+
+    .card {
+      background: linear-gradient(160deg, rgba(var(--accent-rgb),.06), rgba(var(--sec-rgb),.03) 60%, transparent),
+                  var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(var(--accent-rgb),.06),
+        0 20px 50px rgba(0,0,0,.5),
+        0 0 40px rgba(var(--accent-rgb),.06);
+      animation: cardIn .28s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* logo topo */
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .18em;
+      color: var(--accent-b);
+      text-shadow: 0 0 12px rgba(var(--accent-rgb),.4);
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+    .logo span { color: var(--secondary); }
+
+    /* ícone mic */
+    .mic-ring {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(var(--accent-rgb),.07);
+      border: 1.5px solid rgba(var(--accent-rgb),.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+      box-shadow: 0 0 28px rgba(var(--accent-rgb),.1);
+      animation: micPulse 2.8s ease-in-out infinite;
+    }
+    @keyframes micPulse {
+      0%,100% { box-shadow: 0 0 20px rgba(var(--accent-rgb),.08), 0 0 0 0 rgba(var(--accent-rgb),.2); }
+      50%      { box-shadow: 0 0 32px rgba(var(--accent-rgb),.16), 0 0 0 8px rgba(var(--accent-rgb),0); }
+    }
+    .mic-ring svg {
+      width: 30px; height: 30px;
+      color: var(--accent-b);
+      filter: drop-shadow(0 0 6px rgba(var(--accent-rgb),.5));
+    }
+
+    h1 {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--tx);
+      letter-spacing: -.03em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 13px;
+      color: var(--tx-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 308px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 0 12px;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--accent-rgb), .28);
+      background: rgba(var(--accent-rgb), .07);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent-b);
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--secondary);
+      box-shadow: 0 0 10px rgba(var(--sec-rgb), .5);
+    }
+
+    .steps {
+      width: 100%;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-height: 52px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(var(--accent-rgb), .14);
+      background: rgba(255, 255, 255, .03);
+      text-align: left;
+      color: var(--tx-muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .step strong {
+      color: var(--accent-b);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 13px;
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), #0088cc);
+      color: #020d18;
+      box-shadow: 0 8px 20px rgba(var(--accent-rgb),.28), 0 0 0 1px rgba(var(--accent-rgb),.2);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .btn:hover  { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(var(--accent-rgb),.38), 0 0 0 1px rgba(var(--accent-rgb),.3); }
+    .btn:active { transform: scale(.98); }
+
+    #status {
+      min-height: 18px;
+      margin-top: 14px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--tx-muted);
+      transition: color .2s;
+    }
+    #status.ok  { color: var(--ok); }
+    #status.err { color: var(--err); }
+
+    /* linha decorativa no fundo */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+      margin: 20px 0 16px;
+    }
+
+    .footer {
+      font-size: 10px;
+      color: var(--tx-muted);
+      opacity: .5;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      line-height: 1.45;
+      max-width: 280px;
+    }
+
+    @media (max-height: 680px) {
+      .shell { padding: 18px 16px; }
+      .card { padding: 24px 20px 20px; }
+      .logo { margin-bottom: 18px; }
+      .mic-ring { width: 64px; height: 64px; margin-bottom: 16px; }
+      .steps { margin-bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+
+      <div class="logo" id="perm-logo">RHYSCODE <span id="perm-logo-sub">RHYS</span></div>
+
+      <div class="mic-ring">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" x2="12" y1="19" y2="22"/>
+        </svg>
+      </div>
+
+      <div class="eyebrow">Captura de voz segura</div>
+      <h1>Permitir Microfone</h1>
+      <p id="perm-desc">A extensão precisa de acesso ao microfone para liberar o ditado por voz no painel principal.</p>
+
+      <div class="steps" aria-label="Fluxo de permiss&atilde;o">
+        <div class="step"><strong>PASSO 1</strong><span>Autorize o acesso quando o Chrome exibir o pedido de permiss&atilde;o.</span></div>
+        <div class="step"><strong>PASSO 2</strong><span>Volte ao painel e toque novamente no microfone para iniciar o ditado.</span></div>
+      </div>
+
+      <button id="btn-allow" class="btn">Ativar Acesso ao Microfone</button>
+      <div id="status"></div>
+
+      <div class="divider"></div>
+      <div class="footer" id="perm-footer">RHYSCODE &#183; v3.7.1 &#183; depois de conceder, volte ao painel principal</div>
+    </div>
+  </div>
+  <script src="permission.js"></script>
+  <script>
+    chrome.storage.local.get(['wl_config'], function(data) {
+      var cfg = data && data.wl_config;
+      if (!cfg || !cfg.brand_name) return;
+      var N = cfg.brand_name.toUpperCase();
+      var S = cfg.brand_sub ? cfg.brand_sub.toUpperCase() : '';
+      var T = cfg.brand_team || cfg.brand_name;
+      document.title = cfg.brand_name + ' — Permissão de Microfone';
+      var logo = document.getElementById('perm-logo');
+      var logoSub = document.getElementById('perm-logo-sub');
+      if (logo) { logo.childNodes[0].textContent = N + ' '; }
+      if (logoSub) logoSub.textContent = S;
+      var footer = document.getElementById('perm-footer');
+      if (footer) footer.innerHTML = T + ' &#183; v3.7.0 &#183; depois de conceder, volte ao painel principal';
+    });
+
+    // Standalone page (own tab, not the sidepanel document) — applies its own
+    // lightweight translation using the same legacy_language preference.
+    chrome.storage.local.get(['legacy_language'], function (langData) {
+      if (!langData || langData.legacy_language !== 'en') return;
+      document.documentElement.lang = 'en';
+      var eyebrow = document.querySelector('.eyebrow');
+      if (eyebrow) eyebrow.textContent = 'Secure voice capture';
+      var h1 = document.querySelector('h1');
+      if (h1) h1.textContent = 'Allow Microphone';
+      var desc = document.getElementById('perm-desc');
+      if (desc) desc.textContent = 'The extension needs microphone access to enable voice dictation in the main panel.';
+      var stepsWrap = document.querySelector('.steps');
+      if (stepsWrap) stepsWrap.setAttribute('aria-label', 'Permission flow');
+      var steps = document.querySelectorAll('.step');
+      if (steps[0]) {
+        steps[0].querySelector('strong').textContent = 'STEP 1';
+        steps[0].querySelector('span').textContent = 'Authorize access when Chrome shows the permission request.';
+      }
+      if (steps[1]) {
+        steps[1].querySelector('strong').textContent = 'STEP 2';
+        steps[1].querySelector('span').textContent = 'Go back to the panel and tap the microphone again to start dictation.';
+      }
+      var btn = document.getElementById('btn-allow');
+      if (btn) btn.textContent = 'Enable Microphone Access';
+      var footerEl = document.getElementById('perm-footer');
+      if (footerEl) {
+        footerEl.innerHTML = footerEl.innerHTML.replace(
+          'depois de conceder, volte ao painel principal',
+          'after granting access, go back to the main panel'
+        );
+      }
+      if (document.title.indexOf('Permissão de Microfone') !== -1) {
+        document.title = document.title.replace('Permissão de Microfone', 'Microphone Permission');
+      }
+    });
+  </script>
+</body>
+</html>

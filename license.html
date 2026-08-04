@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="cyber" data-theme-sec="neon">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RhysCode — Ativação de Licença</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/sidepanel-modern.css" />
+  <style>
+    /* ── License page overrides ── */
+    :root {
+      --font: var(--font-display, "JetBrains Mono", "Consolas", monospace);
+      --r: 16px;
+      --r2: 28px;
+      --grad-deg: 135deg;
+      --aura-x: 20%;
+      --aura-y: 10%;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      height: auto !important;
+      background: var(--bg-base);
+      color: var(--tx);
+      font-family: var(--font-ui);
+      overflow-x: hidden;
+      overflow-y: auto !important;
+    }
+
+    /* Full-page layout */
+    .lic-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+    }
+    .lic-shell::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse at var(--aura-x,20%) var(--aura-y,10%),
+        rgba(var(--accent-rgb),.13) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 90%,
+        rgba(var(--secondary-rgb),.1) 0%, transparent 50%);
+      transition: background 0.8s ease;
+    }
+
+    /* Header */
+    .lic-header {
+      padding: 28px 0 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: relative; z-index: 2;
+    }
+    .lic-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .lic-logo__mark {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 900; color: var(--bg-base);
+      font-family: var(--font);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb),.35);
+      transition: box-shadow 0.4s ease, background 0.4s ease;
+    }
+    .lic-logo__name {
+      font-size: 18px; font-weight: 800;
+      background: linear-gradient(var(--grad-deg,135deg), var(--accent-bright), var(--secondary));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-family: var(--font);
+      letter-spacing: 0.06em;
+      transition: background 0.5s ease;
+    }
+    .lic-badge {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+      padding: 3px 8px; border-radius: 20px;
+      border: 1px solid rgba(var(--accent-rgb),.35);
+      color: var(--tx-muted);
+      font-family: var(--font-ui);
+    }
+
+    /* Main content */
+    .lic-main {
+      padding: 28px 0;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; gap: 22px;
+    }
+
+    /* Section card */
+    .lic-card {
+      background: rgba(var(--accent-rgb),.04);
+      border: 1px solid var(--border);
+      border-radius: var(--r2);
+      padding: 18px 20px;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .lic-card:hover {
+      border-color: var(--border-2);
+      box-shadow: 0 4px 24px rgba(var(--accent-rgb),.06);
+    }
+    .lic-card__title {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+      color: var(--tx-muted); text-transform: uppercase;
+      margin-bottom: 14px; font-family: var(--font-ui);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .lic-card__title::before {
+      content: ''; display: block;
+      width: 3px; height: 12px; border-radius: 2px;
+      background: var(--accent); transition: background 0.4s ease;
+    }
+
+    /* Hero text */
+    .lic-hero {
+      text-align: center; padding: 8px 0 4px;
+    }
+    .lic-hero__badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.16em;
+      padding: 4px 12px; border-radius: 20px;
+      border: 1px solid rgba(var(--accent-rgb),.3);
+      color: var(--accent); margin-bottom: 16px;
+      font-family: var(--font-ui);
+      background: rgba(var(--accent-rgb),.06);
+    }
+    .lic-hero__badge::before { content: '●'; font-size: 6px; color: var(--accent); }
+    .lic-hero__title {
+      font-size: 26px; font-weight: 900; line-height: 1.2;
+      background: linear-gradient(var(--grad-deg,135deg), var(--accent-bright), var(--secondary), var(--mix));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      font-family: var(--font-ui);
+      transition: background 0.5s ease;
+    }
+    .lic-hero__sub {
+      font-size: 12px; color: var(--tx-muted); line-height: 1.6;
+      font-family: var(--font-ui); max-width: 360px; margin: 0 auto;
+    }
+
+    /* License key input */
+    .lic-key-wrap {
+      position: relative;
+    }
+    .lic-key-input {
+      width: 100%; padding: 14px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      color: var(--accent-bright);
+      font-family: var(--font);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+    }
+    .lic-key-input::placeholder { color: var(--tx-dim); letter-spacing: 0.05em; font-weight: 400; }
+    .lic-key-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(var(--accent-rgb),.4), 0 0 16px rgba(var(--accent-rgb),.12);
+    }
+    .lic-key-hint {
+      font-size: 10px; color: var(--tx-dim); margin-top: 8px;
+      text-align: center; font-family: var(--font-ui);
+    }
+    .lic-key-hint span { color: var(--secondary); }
+
+    /* Activate button */
+    .lic-activate-btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(var(--grad-deg,135deg), var(--accent), var(--secondary));
+      border: none; border-radius: var(--r);
+      color: var(--bg-base);
+      font-family: var(--font-ui); font-size: 13px; font-weight: 800;
+      letter-spacing: 0.08em; cursor: pointer;
+      transition: opacity 0.2s ease, box-shadow 0.3s ease, background 0.5s ease;
+      box-shadow: 0 4px 20px rgba(var(--accent-rgb),.25);
+      position: relative; overflow: hidden;
+    }
+    .lic-activate-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      transform: translateX(-100%); transition: transform 0.4s ease;
+    }
+    .lic-activate-btn:hover { opacity: 0.92; box-shadow: 0 6px 28px rgba(var(--accent-rgb),.35); }
+    .lic-activate-btn:hover::after { transform: translateX(100%); }
+    .lic-activate-btn:active { opacity: 0.82; }
+
+    /* Features list */
+    .lic-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .lic-feature {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 10px 12px; border-radius: var(--r);
+      background: rgba(var(--accent-rgb),.03);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .lic-feature:hover {
+      border-color: var(--border-2);
+      background: rgba(var(--accent-rgb),.06);
+    }
+    .lic-feature__icon { font-size: 16px; margin-top: 1px; flex-shrink: 0; }
+    .lic-feature__label {
+      font-size: 10px; font-weight: 600; color: var(--tx-muted);
+      line-height: 1.4; font-family: var(--font-ui);
+    }
+    .lic-feature__label strong {
+      display: block; color: var(--accent-bright);
+      font-size: 11px; margin-bottom: 2px;
+      transition: color 0.4s ease;
+    }
+
+    /* Preview — Theme + FX pickers mirrored here */
+    .lic-preview-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .lic-preview-note {
+      font-size: 9px; color: var(--tx-dim);
+      font-family: var(--font-ui); letter-spacing: 0.06em;
+    }
+    .lic-toggles {
+      display: flex; gap: 6px;
+    }
+
+    /* Mini app preview */
+    .lic-preview-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 8px;
+      position: relative; overflow: hidden;
+    }
+    .lic-preview-box::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(var(--grad-deg,135deg),
+        rgba(var(--accent-rgb),.06), transparent 50%,
+        rgba(var(--secondary-rgb),.04));
+      transition: background 0.5s ease;
+    }
+    .lpb-row {
+      display: flex; align-items: center; gap: 8px; position: relative;
+    }
+    .lpb-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(var(--accent-rgb),.5);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .lpb-dot--sec { background: var(--secondary); box-shadow: 0 0 6px rgba(var(--secondary-rgb),.5); }
+    .lpb-dot--mix { background: var(--mix); box-shadow: 0 0 6px rgba(var(--mix-rgb),.5); }
+    .lpb-line {
+      height: 6px; border-radius: 3px; flex: 1;
+      background: rgba(var(--accent-rgb),.15);
+      transition: background 0.4s ease;
+    }
+    .lpb-line--sec { background: rgba(var(--secondary-rgb),.15); }
+    .lpb-bar {
+      height: 24px; border-radius: 6px;
+      border: 1px solid var(--border-2);
+      background: rgba(var(--accent-rgb),.06);
+      flex: 1; position: relative; overflow: hidden;
+      transition: border-color 0.4s ease, background 0.4s ease;
+    }
+    .lpb-bar::after {
+      content: ''; position: absolute;
+      left: 0; top: 0; height: 100%; width: 40%;
+      background: linear-gradient(90deg, rgba(var(--accent-rgb),.2), transparent);
+      transition: background 0.4s ease;
+    }
+    .lpb-tag {
+      font-size: 8px; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 6px; border-radius: 4px;
+      background: rgba(var(--secondary-rgb),.12);
+      border: 1px solid rgba(var(--secondary-rgb),.25);
+      color: var(--secondary); font-family: var(--font-ui);
+      transition: all 0.4s ease;
+    }
+    .lpb-input {
+      flex: 1; height: 28px; border-radius: 6px;
+      border: 1px solid var(--border-2);
+      background: rgba(var(--accent-rgb),.04);
+      display: flex; align-items: center; padding: 0 10px;
+      font-size: 9px; color: var(--tx-dim); font-family: var(--font-ui);
+      transition: border-color 0.4s ease;
+    }
+    .lpb-btn {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(var(--accent-rgb),.25);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Picker shared styles (reuse from app) */
+    /* 3.7.1: cada botao (1 / 2 / FX) tem o proprio wrapper relative. Os
+       deslocamentos antigos (left 0/44/88) vinham de quando os tres dividiam
+       um unico ancestral: herdados assim, o popup abria fora do botao e
+       vazava pela direita em painel estreito. Agora ancora no proprio botao e
+       cresce para a ESQUERDA, que e onde sempre ha espaco. */
+    .theme-picker {
+      position: absolute; top: 40px; right: 0; left: auto; z-index: 100;
+      max-width: min(240px, calc(100vw - 28px));
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-top: 2px solid var(--accent);
+      border-radius: var(--r2);
+      padding: 10px 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.6);
+      animation: pickerIn .18s cubic-bezier(.34,1.56,.64,1);
+      min-width: 180px;
+    }
+    /* Os offsets fixos sairam: cada picker ancora no proprio botao. O primeiro
+       cresce para a DIREITA (e o mais a esquerda do trio, sobra espaco desse
+       lado); os outros dois crescem para a esquerda, senao vazam pela borda. */
+    #lic-picker-1 { left: 0; right: auto; }
+    .picker-label {
+      font-size: 8px; font-weight: 800; letter-spacing: 0.14em;
+      color: var(--tx-muted); margin-bottom: 8px; font-family: var(--font-ui);
+      text-transform: uppercase;
+    }
+    .swatch-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 5px; }
+    .theme-swatch {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 6px; border: 1.5px solid transparent;
+      cursor: pointer; transition: all .18s ease;
+      position: relative; overflow: hidden;
+    }
+    .theme-swatch:hover { border-color: rgba(255,255,255,.4); transform: scale(1.08); }
+    .theme-swatch.active { border-color: white; box-shadow: 0 0 8px rgba(255,255,255,.3); }
+    .theme-swatch::after {
+      content: '✓'; position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: white; opacity: 0;
+      transition: opacity .15s;
+    }
+    .theme-swatch.active::after { opacity: 1; }
+
+    /* Swatch colors */
+    .sw-cyber    { background: linear-gradient(135deg,#00bfff,#006699); }
+    .sw-emerald  { background: linear-gradient(135deg,#00e88f,#006644); }
+    .sw-crimson  { background: linear-gradient(135deg,#ff3366,#880022); }
+    .sw-violet   { background: linear-gradient(135deg,#bb44ff,#550088); }
+    .sw-amber    { background: linear-gradient(135deg,#ffaa00,#885500); }
+    .sw-rose     { background: linear-gradient(135deg,#ff6699,#882244); }
+    .sw-ice      { background: linear-gradient(135deg,#88ccff,#224499); }
+    .sw-phantom  { background: linear-gradient(135deg,#9988cc,#332255); }
+    .sw-neon     { background: linear-gradient(135deg,#cc44ff,#6600cc); }
+    .sw-solar    { background: linear-gradient(135deg,#ffaa22,#cc5500); }
+    .sw-toxic    { background: linear-gradient(135deg,#66ff44,#228800); }
+    .sw-frost    { background: linear-gradient(135deg,#00eeff,#00aacc); }
+    .sw-synth    { background: linear-gradient(135deg,#4455ff,#2200cc); }
+    .sw-magma    { background: linear-gradient(135deg,#ff4400,#aa1100); }
+    .sw-gold     { background: linear-gradient(135deg,#ffdd00,#cc8800); }
+    /* FX options in picker */
+    .fx-option {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 6px; cursor: pointer;
+      font-size: 11px; font-family: var(--font-ui); font-weight: 600;
+      color: var(--tx-muted); border: 1px solid transparent;
+      transition: all .15s; margin-bottom: 3px;
+      background: transparent; width: 100%;
+    }
+    .fx-option:hover { background: rgba(var(--mix-rgb),.08); color: var(--tx); border-color: rgba(var(--mix-rgb),.2); }
+    .fx-option.active { background: rgba(var(--mix-rgb),.12); color: var(--mix); border-color: rgba(var(--mix-rgb),.35); box-shadow: 0 0 8px rgba(var(--mix-rgb),.15); }
+    .fx-option__icon { font-size: 14px; width: 20px; text-align: center; }
+
+    /* Toggle buttons */
+    .theme-toggle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid var(--border-2);
+      background: var(--bg-3);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 13px; color: var(--accent);
+      transition: all .2s ease;
+      position: relative;
+    }
+    .theme-toggle:hover { border-color: var(--accent); box-shadow: 0 0 12px rgba(var(--accent-rgb),.3); }
+    .fx-toggle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid rgba(var(--mix-rgb),.45);
+      background: radial-gradient(circle at 40% 35%, rgba(var(--mix-rgb),.2), var(--bg-3));
+      color: var(--mix); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 700;
+      transition: all .25s cubic-bezier(.34,1.56,.64,1);
+      box-shadow: 0 0 8px rgba(var(--mix-rgb),.15);
+      font-family: var(--font-ui);
+    }
+    .fx-toggle:hover { border-color: var(--mix); box-shadow: 0 0 16px rgba(var(--mix-rgb),.5); transform: scale(1.12); }
+
+    /* Plan tiers */
+    .lic-plans {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .lic-plan {
+      padding: 14px; border-radius: var(--r);
+      border: 1px solid var(--border);
+      background: rgba(var(--accent-rgb),.03);
+      text-align: center;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .lic-plan:hover {
+      border-color: var(--border-2);
+      box-shadow: 0 4px 16px rgba(var(--accent-rgb),.08);
+    }
+    .lic-plan.selected {
+      border-color: var(--accent);
+      background: rgba(var(--accent-rgb),.07);
+      box-shadow: 0 0 16px rgba(var(--accent-rgb),.1);
+    }
+    .lic-plan__icon { font-size: 20px; margin-bottom: 6px; }
+    .lic-plan__name {
+      font-size: 11px; font-weight: 800; color: var(--accent-bright);
+      margin-bottom: 4px; font-family: var(--font-ui);
+      transition: color 0.4s ease;
+    }
+    .lic-plan__desc {
+      font-size: 9px; color: var(--tx-dim); line-height: 1.4;
+      font-family: var(--font-ui);
+    }
+    .lic-plan__price {
+      font-size: 13px; font-weight: 900; color: var(--secondary);
+      margin-top: 8px; font-family: var(--font-ui);
+      transition: color 0.4s ease;
+    }
+
+    /* Trust bar */
+    .lic-trust {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      padding: 12px 0;
+    }
+    .lic-trust__item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 9px; color: var(--tx-dim); font-family: var(--font-ui);
+    }
+    .lic-trust__icon { font-size: 12px; }
+
+    /* Status */
+    .lic-status {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px; border-radius: var(--r);
+      background: rgba(var(--accent-rgb),.05);
+      border: 1px solid rgba(var(--accent-rgb),.15);
+      font-size: 11px; color: var(--tx-muted);
+      font-family: var(--font-ui);
+    }
+    .lic-status__dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(var(--accent-rgb),.6);
+      animation: licPulse 2s ease-in-out infinite;
+    }
+    @keyframes licPulse { 0%,100%{opacity:.5}50%{opacity:1} }
+
+    /* Footer */
+    .lic-footer {
+      padding: 16px 0 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      font-size: 9px; color: var(--tx-dim);
+      font-family: var(--font-ui); letter-spacing: 0.06em;
+      position: relative; z-index: 2;
+    }
+    .lic-footer span { color: var(--tx-muted); }
+
+    /* Standalone license-page refinement */
+    body.license-page {
+      min-height: 100vh !important;
+      height: auto !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(var(--accent-rgb), .14), transparent 32%),
+        radial-gradient(circle at 88% 92%, rgba(var(--secondary-rgb), .12), transparent 28%),
+        linear-gradient(180deg, rgba(3, 6, 14, .98), rgba(4, 7, 15, 1));
+    }
+
+    body.license-page::before {
+      opacity: .18;
+      background:
+        radial-gradient(circle at 24% 12%, rgba(var(--accent-rgb), .11), transparent 28%),
+        radial-gradient(circle at 82% 82%, rgba(var(--secondary-rgb), .09), transparent 24%),
+        linear-gradient(transparent 97%, rgba(255,255,255,.016) 100%);
+      background-size: 100% 100%, 100% 100%, 100% 3px;
+    }
+
+    .license-page .lic-shell {
+      max-width: min(980px, calc(100vw - 32px));
+      min-height: 100vh;
+      padding: 22px 0 24px;
+      gap: 18px;
+    }
+
+    .license-page .lic-header {
+      padding: 4px 4px 18px;
+      border-bottom-color: rgba(var(--accent-rgb), .14);
+    }
+
+    .license-page .lic-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+      gap: 16px;
+      align-items: start;
+      grid-auto-flow: dense;
+    }
+
+    .license-page .lic-main > .lic-hero {
+      grid-column: 1 / -1;
+      padding: 24px 26px 18px;
+      border: 1px solid rgba(var(--accent-rgb), .14);
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(var(--accent-rgb), .12), rgba(var(--secondary-rgb), .06) 48%, rgba(255,255,255,.015) 100%),
+        rgba(8, 12, 20, .66);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 18px 42px rgba(0, 0, 0, .28);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .license-page .lic-main > .lic-hero::after {
+      content: '';
+      position: absolute;
+      right: -18px;
+      top: -16px;
+      width: 156px;
+      height: 156px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--secondary-rgb), .16), transparent 70%);
+      opacity: .48;
+      pointer-events: none;
+    }
+
+    .license-page .lic-hero__title {
+      font-size: clamp(28px, 4.8vw, 42px);
+      letter-spacing: -.045em;
+    }
+
+    .license-page .lic-hero__sub {
+      max-width: 680px;
+      font-size: 13px;
+    }
+
+    .license-page .lic-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      padding: 20px;
+      border-color: rgba(var(--accent-rgb), .12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)),
+        rgba(8, 12, 20, .74);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.028),
+        0 14px 28px rgba(0, 0, 0, .22);
+    }
+
+    .license-page .lic-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(var(--accent-rgb), .58), rgba(var(--secondary-rgb), .22));
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .license-page .lic-card:hover {
+      border-color: rgba(var(--accent-rgb), .18);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.028),
+        0 16px 32px rgba(0, 0, 0, .24);
+    }
+
+    .license-page .lic-plans {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .license-page .lic-plan {
+      min-height: 154px;
+      padding: 16px 14px;
+      border-radius: 18px;
+      border-color: rgba(var(--accent-rgb), .12);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012)),
+        rgba(255,255,255,.015);
+    }
+
+    .license-page .lic-plan.selected {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(var(--accent-rgb), .15),
+        0 16px 32px rgba(var(--accent-rgb), .08);
+    }
+
+    .license-page .lic-key-input,
+    .license-page .lic-activate-btn {
+      min-height: 54px;
+      border-radius: 16px;
+    }
+
+    .license-page .lic-status,
+    .license-page .lic-trust__item {
+      border-radius: 14px;
+    }
+
+    .license-page .lic-features {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .license-page .lic-feature {
+      min-height: 78px;
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)),
+        rgba(255,255,255,.014);
+    }
+
+    .license-page .lic-preview-box {
+      min-height: 188px;
+      border-radius: 18px;
+      padding: 15px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01)),
+        rgba(8, 12, 20, .7);
+    }
+
+    .license-page .lic-footer {
+      padding: 18px 6px 10px;
+      border-top-color: rgba(var(--accent-rgb), .12);
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .license-page .lic-shell {
+        max-width: min(560px, calc(100vw - 28px));
+      }
+
+      .license-page .lic-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .license-page .lic-shell {
+        max-width: calc(100vw - 24px);
+        padding: 16px 0 18px;
+      }
+
+      .license-page .lic-header {
+        padding: 2px 2px 14px;
+      }
+
+      .license-page .lic-main > .lic-hero,
+      .license-page .lic-card {
+        padding: 18px 16px;
+        border-radius: 22px;
+      }
+
+      .license-page .lic-plans,
+      .license-page .lic-features {
+        grid-template-columns: 1fr;
+      }
+
+      .license-page .lic-preview-header {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .license-page .lic-toggles,
+      .license-page .lic-preview-header > div:last-child {
+        flex-wrap: wrap;
+      }
+
+      .license-page .lic-footer {
+        font-size: 9px;
+        letter-spacing: .04em;
+      }
+    }
+
+    @keyframes pickerIn { from{opacity:0;transform:scale(.95) translateY(-4px)}to{opacity:1;transform:none} }
+  </style>
+</head>
+<body class="license-page">
+  <div class="lic-shell">
+
+    <!-- Header -->
+    <header class="lic-header">
+      <div class="lic-logo">
+        <div class="lic-logo__mark" id="lic-logo-mark">R</div>
+        <span class="lic-logo__name" id="lic-logo-name">RHYSCODE</span>
+      </div>
+      <div class="lic-badge">ATIVAÇÃO</div>
+    </header>
+
+    <!-- Main -->
+    <main class="lic-main">
+
+      <!-- Hero -->
+      <div class="lic-hero">
+        <div class="lic-hero__badge">ACESSO EXCLUSIVO</div>
+        <h1 class="lic-hero__title">Ative sua Licença</h1>
+        <p class="lic-hero__sub">
+          Insira sua chave de licença para desbloquear acesso completo —
+          pipeline de desenvolvimento com IA sem consumo de créditos.
+        </p>
+      </div>
+
+      <!-- Plans -->
+      <div class="lic-card">
+        <div class="lic-card__title">Selecione seu Plano</div>
+        <div class="lic-plans">
+          <div class="lic-plan selected" id="plan-pro" onclick="selectPlan('pro')">
+            <div class="lic-plan__icon">⚡</div>
+            <div class="lic-plan__name">PRO</div>
+            <div class="lic-plan__desc">Acesso total, uso ilimitado, todos os efeitos</div>
+            <div class="lic-plan__price">Individual</div>
+          </div>
+          <div class="lic-plan" id="plan-team" onclick="selectPlan('team')">
+            <div class="lic-plan__icon">🏢</div>
+            <div class="lic-plan__name">TEAM</div>
+            <div class="lic-plan__desc">Multi-usuário, painel admin, prioridade no suporte</div>
+            <div class="lic-plan__price">Empresarial</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- License Key -->
+      <div class="lic-card">
+        <div class="lic-card__title">Chave de Licença</div>
+        <div class="lic-key-wrap">
+          <input
+            class="lic-key-input"
+            id="lic-key"
+            type="text"
+            placeholder="XXXX-XXXX-XXXX-XXXX"
+            maxlength="24"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <div class="lic-key-hint">
+          Recebeu sua chave por e-mail após a compra.
+          <span>Suporte: contate seu fornecedor</span>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="lic-status" style="margin-top:12px">
+          <div class="lic-status__dot"></div>
+          <span id="lic-status-text">Aguardando chave de licença...</span>
+        </div>
+
+        <!-- Activate Button -->
+        <button class="lic-activate-btn" style="margin-top:14px" onclick="activateLicense()">
+          ATIVAR LICENÇA →
+        </button>
+
+        <!-- Trust -->
+        <div class="lic-trust">
+          <div class="lic-trust__item">
+            <span class="lic-trust__icon">🔒</span>
+            <span>Criptografado</span>
+          </div>
+          <div class="lic-trust__item">
+            <span class="lic-trust__icon">✅</span>
+            <span>Verificado</span>
+          </div>
+          <div class="lic-trust__item">
+            <span class="lic-trust__icon">⚡</span>
+            <span>Ativação instantânea</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="lic-card">
+        <div class="lic-card__title">O que está incluído</div>
+        <div class="lic-features">
+          <div class="lic-feature">
+            <span class="lic-feature__icon">🎨</span>
+            <div class="lic-feature__label">
+              <strong>56 Combinações</strong>
+              Sistema dual de cores primária + secundária
+            </div>
+          </div>
+          <div class="lic-feature">
+            <span class="lic-feature__icon">⚡</span>
+            <div class="lic-feature__label">
+              <strong>4 Efeitos FX</strong>
+              RGB, Pulse, Glitch e Wave com sons únicos
+            </div>
+          </div>
+          <div class="lic-feature">
+            <span class="lic-feature__icon">🔊</span>
+            <div class="lic-feature__label">
+              <strong>Sons de UI</strong>
+              Feedback sonoro suave em cada interação
+            </div>
+          </div>
+          <div class="lic-feature">
+            <span class="lic-feature__icon">🚀</span>
+            <div class="lic-feature__label">
+              <strong>0 Créditos</strong>
+              Pipeline de IA sem custo de plataforma
+            </div>
+          </div>
+          <div class="lic-feature">
+            <span class="lic-feature__icon">🌈</span>
+            <div class="lic-feature__label">
+              <strong>Neon Glow</strong>
+              5 variações automáticas a cada 3 minutos
+            </div>
+          </div>
+          <div class="lic-feature">
+            <span class="lic-feature__icon">💾</span>
+            <div class="lic-feature__label">
+              <strong>50 Fallbacks</strong>
+              Stack de sessões para máxima confiabilidade
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE PREVIEW -->
+      <div class="lic-card">
+        <div class="lic-preview-header">
+          <div class="lic-card__title" style="margin-bottom:0">Preview Visual</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="lic-preview-note">Personalize aqui</div>
+            <!-- Theme toggles -->
+            <div style="position:relative">
+              <button class="theme-toggle" id="lic-toggle-1" title="Cor Primária" onclick="openPicker('picker1')">◑</button>
+              <div class="theme-picker" id="lic-picker-1" style="display:none">
+                <div class="picker-label">Cor Primária</div>
+                <div class="swatch-grid">
+                  <div class="theme-swatch sw-cyber active"   data-theme="cyber"   onclick="setPrimary('cyber',this)"   title="Cyber"></div>
+                  <div class="theme-swatch sw-emerald"        data-theme="emerald" onclick="setPrimary('emerald',this)" title="Emerald"></div>
+                  <div class="theme-swatch sw-crimson"        data-theme="crimson" onclick="setPrimary('crimson',this)" title="Crimson"></div>
+                  <div class="theme-swatch sw-violet"         data-theme="violet"  onclick="setPrimary('violet',this)"  title="Violet"></div>
+                  <div class="theme-swatch sw-amber"          data-theme="amber"   onclick="setPrimary('amber',this)"   title="Amber"></div>
+                  <div class="theme-swatch sw-rose"           data-theme="rose"    onclick="setPrimary('rose',this)"    title="Rose"></div>
+                  <div class="theme-swatch sw-ice"            data-theme="ice"     onclick="setPrimary('ice',this)"     title="Ice"></div>
+                  <div class="theme-swatch sw-phantom"        data-theme="phantom" onclick="setPrimary('phantom',this)" title="Phantom"></div>
+                </div>
+              </div>
+            </div>
+            <div style="position:relative">
+              <button class="theme-toggle" id="lic-toggle-2" title="Cor Secundária" onclick="openPicker('picker2')">
+                <span style="color:var(--secondary)">◐</span>
+              </button>
+              <div class="theme-picker" id="lic-picker-2" style="display:none">
+                <div class="picker-label">Cor Secundária</div>
+                <div class="swatch-grid">
+                  <div class="theme-swatch sw-neon active"  data-theme-sec="neon"  onclick="setSecondary('neon',this)"  title="Neon"></div>
+                  <div class="theme-swatch sw-solar"        data-theme-sec="solar" onclick="setSecondary('solar',this)" title="Solar"></div>
+                  <div class="theme-swatch sw-toxic"        data-theme-sec="toxic" onclick="setSecondary('toxic',this)" title="Toxic"></div>
+                  <div class="theme-swatch sw-frost"        data-theme-sec="frost" onclick="setSecondary('frost',this)" title="Frost"></div>
+                  <div class="theme-swatch sw-synth"        data-theme-sec="synth" onclick="setSecondary('synth',this)" title="Synth"></div>
+                  <div class="theme-swatch sw-magma"        data-theme-sec="magma" onclick="setSecondary('magma',this)" title="Magma"></div>
+                  <div class="theme-swatch sw-gold"         data-theme-sec="gold"  onclick="setSecondary('gold',this)"  title="Gold"></div>
+                </div>
+              </div>
+            </div>
+            <div style="position:relative">
+              <button class="fx-toggle" id="lic-fx-toggle" title="Efeitos Visuais" onclick="openPicker('fxpicker')">
+                <span>FX</span>
+              </button>
+              <div class="theme-picker" id="lic-fx-picker" style="display:none">
+                <div class="picker-label">Efeitos</div>
+                <button class="fx-option active" data-fx="none"   onclick="setFx('none',this)">  <span class="fx-option__icon">⊘</span>Nenhum</button>
+                <button class="fx-option"        data-fx="rgb"    onclick="setFx('rgb',this)">   <span class="fx-option__icon">🌈</span>RGB Flow</button>
+                <button class="fx-option"        data-fx="pulse"  onclick="setFx('pulse',this)"> <span class="fx-option__icon">💗</span>Pulse</button>
+                <button class="fx-option"        data-fx="glitch" onclick="setFx('glitch',this)"><span class="fx-option__icon">⚡</span>Glitch</button>
+                <button class="fx-option"        data-fx="wave"   onclick="setFx('wave',this)">  <span class="fx-option__icon">🌊</span>Wave</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini preview -->
+        <div class="lic-preview-box">
+          <div class="lpb-row">
+            <div class="lpb-dot"></div>
+            <div class="lpb-line" style="max-width:60px"></div>
+            <div class="lpb-tag" id="lic-preview-tag">RHYSCODE</div>
+            <div style="flex:1"></div>
+            <div class="lpb-dot lpb-dot--sec"></div>
+          </div>
+          <div class="lpb-row">
+            <div class="lpb-dot lpb-dot--mix" style="width:4px;height:4px"></div>
+            <div class="lpb-bar"></div>
+          </div>
+          <div class="lpb-row" style="gap:6px">
+            <div class="lpb-input">Descreva o que deseja...</div>
+            <div class="lpb-btn">→</div>
+          </div>
+          <div class="lpb-row" style="gap:4px;flex-wrap:wrap">
+            <div class="lpb-tag" style="font-size:8px">Otimizar</div>
+            <div class="lpb-tag" style="font-size:8px;background:rgba(var(--accent-rgb),.1);border-color:rgba(var(--accent-rgb),.25);color:var(--accent)">Corrigir</div>
+            <div class="lpb-tag" style="font-size:8px">Refatorar</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="lic-footer">
+      <span id="lic-footer-brand">RHYSCODE</span> v3.7.1 &#8212; Sistema seguro de ativa&ccedil;&atilde;o &#183; AES-256-GCM
+    </footer>
+
+  </div>
+
+  <script>
+    'use strict';
+
+    // ── Audio ──
+    const _ac = typeof AudioContext !== 'undefined' ? new AudioContext() : null;
+    function _tap(freq = 1200, dur = 0.04, vol = 0.03) {
+      if (!_ac) return;
+      if (_ac.state === 'suspended') _ac.resume();
+      const now = _ac.currentTime;
+      const o = _ac.createOscillator(), g = _ac.createGain();
+      o.connect(g); g.connect(_ac.destination);
+      o.type = 'sine'; o.frequency.setValueAtTime(freq, now);
+      o.frequency.exponentialRampToValueAtTime(freq * 0.5, now + dur);
+      g.gain.setValueAtTime(vol, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+      o.start(now); o.stop(now + dur);
+    }
+    function _confirm() {
+      if (!_ac) return;
+      if (_ac.state === 'suspended') _ac.resume();
+      const now = _ac.currentTime;
+      const o1 = _ac.createOscillator(), o2 = _ac.createOscillator(), g = _ac.createGain();
+      o1.connect(g); o2.connect(g); g.connect(_ac.destination);
+      o1.type = 'sine'; o2.type = 'sine';
+      o1.frequency.setValueAtTime(800, now);
+      o2.frequency.setValueAtTime(1200, now + 0.06);
+      g.gain.setValueAtTime(0.03, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      o1.start(now); o1.stop(now + 0.07);
+      o2.start(now + 0.06); o2.stop(now + 0.14);
+    }
+
+    // ── Picker management ──
+    const pickers = { picker1: 'lic-picker-1', picker2: 'lic-picker-2', fxpicker: 'lic-fx-picker' };
+    let openId = null;
+    function openPicker(key) {
+      _tap(900, 0.03, 0.025);
+      const el = document.getElementById(pickers[key]);
+      const isOpen = el.style.display !== 'none';
+      Object.values(pickers).forEach(id => document.getElementById(id).style.display = 'none');
+      if (!isOpen) { el.style.display = 'block'; openId = key; }
+      else openId = null;
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.theme-picker') && !e.target.closest('.theme-toggle') && !e.target.closest('.fx-toggle')) {
+        Object.values(pickers).forEach(id => document.getElementById(id).style.display = 'none');
+        openId = null;
+      }
+    });
+
+    // ── Theme switches ──
+    function setPrimary(theme, el) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.querySelectorAll('#lic-picker-1 .theme-swatch').forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('lic-picker-1').style.display = 'none';
+      _tap(1100, 0.035, 0.028);
+    }
+    function setSecondary(theme, el) {
+      document.documentElement.setAttribute('data-theme-sec', theme);
+      document.querySelectorAll('#lic-picker-2 .theme-swatch').forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('lic-picker-2').style.display = 'none';
+      _tap(1300, 0.03, 0.028);
+    }
+    function setFx(fx, el) {
+      if (fx === 'none') document.documentElement.removeAttribute('data-fx');
+      else document.documentElement.setAttribute('data-fx', fx);
+      document.querySelectorAll('#lic-fx-picker .fx-option').forEach(o => o.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('lic-fx-picker').style.display = 'none';
+      _tap(950, 0.05, 0.028);
+    }
+
+    // ── Plan select ──
+    function selectPlan(plan) {
+      document.querySelectorAll('.lic-plan').forEach(p => p.classList.remove('selected'));
+      document.getElementById('plan-' + plan).classList.add('selected');
+      _tap(1000, 0.04, 0.025);
+    }
+
+    // ── License key input formatting ──
+    const keyInput = document.getElementById('lic-key');
+    keyInput.addEventListener('input', () => {
+      let v = keyInput.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase().substring(0, 20);
+      const parts = [];
+      for (let i = 0; i < v.length; i += 5) parts.push(v.substring(i, i + 5));
+      keyInput.value = parts.join('-');
+      const len = keyInput.value.replace(/-/g,'').length;
+      document.getElementById('lic-status-text').textContent =
+        len === 0 ? 'Aguardando chave de licença...' :
+        len < 20 ? `Digitando... (${len}/20 caracteres)` :
+        '✓ Chave completa — pronta para ativar';
+    });
+    keyInput.addEventListener('keydown', e => {
+      if (e.key.length === 1 || e.key === 'Backspace') _tap(1800 + Math.random() * 300, 0.015, 0.01);
+      if (e.key === 'Enter') { _confirm(); activateLicense(); }
+    });
+
+    // ── Activate ──
+    function activateLicense() {
+      const key = keyInput.value.replace(/-/g, '');
+      if (key.length < 20) {
+        document.getElementById('lic-status-text').textContent = '⚠ Chave incompleta. Verifique e tente novamente.';
+        _tap(300, 0.08, 0.02);
+        return;
+      }
+      _confirm();
+      document.getElementById('lic-status-text').textContent = '⏳ Verificando licença...';
+      setTimeout(() => {
+        document.getElementById('lic-status-text').textContent = '✅ Licença válida! Abrindo painel...';
+        _tap(900, 0.1, 0.035);
+        // Save license to storage
+        if (typeof chrome !== 'undefined' && chrome.storage) {
+          chrome.storage.local.set({ legacy_license: key }, () => {
+            setTimeout(() => { window.location.href = 'sidepanel.html'; }, 600);
+          });
+        } else {
+          // Dev preview mode
+          setTimeout(() => { alert('Licença ativada! (modo dev)'); }, 600);
+        }
+      }, 1200);
+    }
+
+    // ── Neon auto-cycle ──
+    let _lastNeon = 0;
+    function cycleNeon() {
+      let n; do { n = Math.floor(Math.random() * 5) + 1; } while (n === _lastNeon);
+      _lastNeon = n;
+      document.documentElement.setAttribute('data-neon', n);
+    }
+    cycleNeon();
+    setInterval(cycleNeon, 180000);
+  </script>
+  <script>
+    // ── White Label branding ──
+    chrome.storage.local.get(['wl_config'], function(data) {
+      var cfg = data && data.wl_config;
+      if (!cfg || !cfg.brand_name) return;
+      var N = cfg.brand_name.toUpperCase();
+      var el;
+      document.title = cfg.brand_name + ' — Ativação de Licença';
+      el = document.getElementById('lic-logo-mark'); if (el) el.textContent = N[0] || 'L';
+      el = document.getElementById('lic-logo-name'); if (el) el.textContent = N;
+      el = document.getElementById('lic-preview-tag'); if (el) el.textContent = N;
+      el = document.getElementById('lic-footer-brand'); if (el) el.textContent = N;
+    });
+  </script>
+</body>
+</html>

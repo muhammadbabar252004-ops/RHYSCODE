@@ -1,0 +1,75 @@
+{
+  "manifest_version": 3,
+  "name": "RhysCode",
+  "version": "3.7.1",
+  "version_name": "3.7.1",
+  "description": "Prompts ilimitados para Lovable.dev \u2014 Desenvolva sem limites.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "sidePanel",
+    "webRequest",
+    "cookies"
+  ],
+  "host_permissions": [
+    "https://lovable.dev/*",
+    "https://api.lovable.dev/*",
+    "https://goslmyogpkyafdzkcpjf.supabase.co/*",
+    "https://storage.googleapis.com/*",
+    "https://supabase.com/*",
+    "https://api.supabase.com/*",
+    "https://auth.supabase.io/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://lovable.dev/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://lovable.dev/*"
+      ],
+      "js": [
+        "floating.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "RhysCode — rhys",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "pageHook.js",
+        "wl-config.json",
+        "sidepanel.html"
+      ],
+      "matches": [
+        "https://lovable.dev/*"
+      ]
+    }
+  ]
+}

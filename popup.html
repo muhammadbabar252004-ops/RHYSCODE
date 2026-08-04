@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title data-wl="name">RhysCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body class="popup-body">
+<div class="popup-shell">
+  <div class="popup-head">
+    <div class="popup-logo">
+      <span data-wl="name">RHYSCODE</span>
+      <span data-wl="sub">RHYS</span>
+    </div>
+    <span class="popup-head__badge">3.7.0</span>
+  </div>
+
+  <div class="popup-hero">
+    <span class="popup-hero__kicker">Acesso r&aacute;pido</span>
+    <h1 class="popup-hero__title">Entrar no painel com o estado do projeto em m&atilde;os</h1>
+    <p class="popup-hero__copy">Leitura imediata do token, do projeto ativo e do pipeline antes de abrir a interface principal.</p>
+  </div>
+
+  <div class="popup-status" id="popup-status">
+    <div class="popup-status-row">
+      <span class="popup-status-label">Token</span>
+      <span class="popup-status-value" id="ps-token">verificando...</span>
+    </div>
+    <div class="popup-status-row">
+      <span class="popup-status-label">Project ID</span>
+      <span class="popup-status-value" id="ps-project">&#8212;</span>
+    </div>
+    <div class="popup-status-row">
+      <span class="popup-status-label">Pipeline</span>
+      <span class="popup-status-value ok">ativo</span>
+    </div>
+  </div>
+
+  <div class="popup-tip">
+    Se o projeto n&atilde;o aparecer aqui, abra uma aba do Lovable e entre no workspace antes de iniciar a sess&atilde;o pelo painel.
+  </div>
+
+  <button class="popup-open-btn" id="open-panel-btn">
+    <span>&#9889;</span> Abrir painel
+  </button>
+
+</div>
+
+<script src="wl-fallback.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

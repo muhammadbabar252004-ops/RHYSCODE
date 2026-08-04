@@ -1,0 +1,227 @@
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR — REWRITE v5.0 (clean, centered, responsive)
+   All items share identical 36×34 hit areas when collapsed.
+   Icons 18px centered via flexbox. Zero margin hacks.
+═══════════════════════════════════════════════════════════════ */
+
+/* Container */
+.action-sidebar {
+  background: rgba(10,12,18,0.96) !important;
+  border-right: 1px solid rgba(var(--accent-rgb),0.08) !important;
+  box-shadow: 1px 0 10px rgba(0,0,0,0.15) !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Inner panel — vertical stack */
+.action-sidebar__panel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 6px 4px !important;
+  gap: 2px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* ── SHARED BASE for all sidebar clickables ─────────────────── */
+.action-sidebar__handle,
+.os-nav--sidebar .os-nav__item,
+.sidebar-action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 34px !important;
+  min-width: 36px !important;
+  min-height: 34px !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: rgba(var(--accent-rgb),0.55) !important;
+  transition: all 0.15s cubic-bezier(0.22,1,0.36,1) !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* ── SHARED ICON container ──────────────────────────────────── */
+.action-sidebar__handle-icon,
+.os-nav__icon,
+.sidebar-action__icon {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ── SVG icons inside containers ────────────────────────────── */
+.ui-icon--nav {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  stroke-width: 1.8 !important;
+  color: inherit !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+.os-nav__icon .ui-icon,
+.sidebar-action__icon .ui-icon { color: inherit !important; }
+
+/* ── HOVER state ────────────────────────────────────────────── */
+.action-sidebar__handle:hover,
+.os-nav--sidebar .os-nav__item:hover,
+.sidebar-action:hover {
+  background: rgba(var(--accent-rgb),0.06) !important;
+  border-color: rgba(var(--accent-rgb),0.12) !important;
+  color: rgba(var(--accent-rgb),0.85) !important;
+}
+
+/* ── ACTIVE nav item ────────────────────────────────────────── */
+.os-nav--sidebar .os-nav__item.is-active {
+  background: rgba(var(--accent-rgb),0.08) !important;
+  border-color: rgba(var(--accent-rgb),0.18) !important;
+  color: var(--cy-neon) !important;
+  box-shadow: inset 2px 0 0 rgba(var(--accent-rgb),0.7) !important;
+}
+
+/* ── ACCENT action (e.g. Atalhos) ───────────────────────────── */
+.sidebar-action--accent {
+  color: rgba(var(--accent-rgb),0.7) !important;
+  background: rgba(var(--accent-rgb),0.04) !important;
+  border-color: rgba(var(--accent-rgb),0.08) !important;
+}
+.sidebar-action--accent:hover {
+  background: rgba(var(--accent-rgb),0.10) !important;
+  border-color: rgba(var(--accent-rgb),0.18) !important;
+  color: var(--cy-neon) !important;
+}
+
+/* ── STATE action (blocker) ─────────────────────────────────── */
+.sidebar-action--state[data-blocker-active="true"] {
+  color: rgba(var(--accent-rgb),0.5) !important;
+  border-color: rgba(var(--accent-rgb),0.06) !important;
+}
+
+/* ── Handle specifics ───────────────────────────────────────── */
+.action-sidebar__handle-trace,
+.action-sidebar__handle-copy { display: none !important; }
+
+/* ── Group labels ───────────────────────────────────────────── */
+.action-sidebar__group-label {
+  font-family: var(--cy-font-display) !important;
+  font-size: 5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.24em !important;
+  color: var(--cy-tx-3) !important;
+  text-transform: uppercase !important;
+  padding: 3px 0 1px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+/* ── Nav group divider ──────────────────────────────────────── */
+.action-sidebar__group--nav {
+  padding-bottom: 4px !important;
+  border-bottom: 1px solid rgba(var(--accent-rgb),0.06) !important;
+  margin-bottom: 2px !important;
+}
+
+/* ── Text labels (only visible when pinned) ──────────────────── */
+.os-nav__label {
+  font-family: var(--cy-font-ui) !important;
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.os-nav__meta {
+  font-size: 7px !important;
+  color: var(--cy-tx-3) !important;
+  white-space: nowrap !important;
+}
+.sidebar-action__copy strong {
+  font-family: var(--cy-font-ui) !important;
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  display: block !important;
+  white-space: nowrap !important;
+}
+.sidebar-action__copy small {
+  font-size: 7px !important;
+  color: var(--cy-tx-3) !important;
+  display: block !important;
+  white-space: nowrap !important;
+}
+
+/* ── Sidebar footer ─────────────────────────────────────────── */
+.action-sidebar__footer {
+  margin-top: auto !important;
+  border-top: 1px solid rgba(var(--accent-rgb),0.05) !important;
+  padding-top: 4px !important;
+}
+.action-sidebar__meta-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 2px 4px !important;
+  min-height: 18px !important;
+}
+.action-sidebar__meta-row span {
+  font-size: 7px !important;
+  color: var(--cy-tx-3) !important;
+  font-family: var(--cy-font-mono) !important;
+}
+.action-sidebar__meta-row strong {
+  font-size: 7px !important;
+  color: var(--cy-tx-2) !important;
+  font-family: var(--cy-font-mono) !important;
+  font-weight: 500 !important;
+}
+
+/* ── COLLAPSED STATE — hide text, keep icons centered ────────── */
+body:not(.dock-pinned) .action-sidebar__panel {
+  padding: 6px 2px !important;
+  align-items: center !important;
+}
+body:not(.dock-pinned) .sidebar-action__copy,
+body:not(.dock-pinned) .os-nav__label-wrap,
+body:not(.dock-pinned) .action-sidebar__group-label,
+body:not(.dock-pinned) .action-sidebar__handle-copy,
+body:not(.dock-pinned) .action-sidebar__footer {
+  display: none !important;
+}
+
+/* ── PINNED STATE — expand items for text ────────────────────── */
+body.dock-pinned .action-sidebar__handle,
+body.dock-pinned .os-nav--sidebar .os-nav__item,
+body.dock-pinned .sidebar-action {
+  width: 100% !important;
+  min-width: unset !important;
+  justify-content: flex-start !important;
+  padding: 0 10px !important;
+  gap: 8px !important;
+}
+
+/* ── Sidebar rail ───────────────────────────────────────────── */
+.action-sidebar__rail {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  align-items: center !important;
+  width: 100% !important;
+}

@@ -1,0 +1,497 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   LEGACY — depth.css  v2  ·  Sistema de Profundidade Visual
+   ─────────────────────────────────────────────────────────────────────────
+   Hierarquia visual em 6 camadas. Sombreamento forte, fundo escuro no
+   histórico, ícones com drop-shadow, bordas preta nos textos, e identidade
+   cromática clara entre mensagens do usuário e do sistema.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── TOKENS ─────────────────────────────────────────────────────────────── */
+:root {
+  /* Sombras progressivas */
+  --dp-z1: 0 2px 6px  rgba(0,0,0,0.40), 0 6px 18px  rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.03);
+  --dp-z2: 0 3px 10px rgba(0,0,0,0.44), 0 10px 28px rgba(0,0,0,0.32), 0 22px 44px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.04);
+  --dp-z3: 0 4px 12px rgba(0,0,0,0.40), 0 14px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.04);
+  --dp-z4: 0 8px 20px rgba(0,0,0,0.48), 0 24px 48px rgba(0,0,0,0.34), 0 48px 72px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.05);
+  --dp-z5: 0 12px 28px rgba(0,0,0,0.54), 0 36px 64px rgba(0,0,0,0.38), 0 64px 96px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+
+  /* Glow de acento por estado */
+  --dp-glow-accent:  0 0 0 1px rgba(var(--accent-rgb),0.18),  0 4px 20px rgba(var(--accent-rgb),0.12);
+  --dp-glow-ok:      0 0 0 1px rgba(42,220,162,0.22),         0 4px 16px rgba(42,220,162,0.12);
+  --dp-glow-warn:    0 0 0 1px rgba(245,191,103,0.22),        0 4px 16px rgba(245,191,103,0.12);
+  --dp-glow-err:     0 0 0 1px rgba(255,111,132,0.22),        0 4px 16px rgba(255,111,132,0.12);
+  --dp-glow-sec:     0 0 0 1px rgba(var(--secondary-rgb),0.16),0 4px 16px rgba(var(--secondary-rgb),0.10);
+
+  /* text-shadow por nível hierárquico */
+  --dp-txt-hero:  0 1px 0 rgba(0,0,0,0.90), 0 2px 8px  rgba(0,0,0,0.60), 0 4px 20px rgba(0,0,0,0.30);
+  --dp-txt-h1:    0 1px 0 rgba(0,0,0,0.80), 0 1px 6px  rgba(0,0,0,0.50), 0 2px 14px rgba(0,0,0,0.24);
+  --dp-txt-h2:    0 1px 0 rgba(0,0,0,0.70), 0 1px 4px  rgba(0,0,0,0.44);
+  --dp-txt-body:  0 1px 0 rgba(0,0,0,0.60), 0 1px 3px  rgba(0,0,0,0.36);
+  --dp-txt-label: 0 1px 0 rgba(0,0,0,0.55), 0 1px 2px  rgba(0,0,0,0.30);
+  --dp-txt-dim:   0 1px 0 rgba(0,0,0,0.45);
+
+  /* text-shadow colorido para mensagens */
+  --dp-txt-user:   0 1px 0 rgba(0,0,0,0.80), 0 0 10px rgba(var(--accent-rgb),0.18);
+  --dp-txt-system: 0 1px 0 rgba(0,0,0,0.80), 0 0  8px rgba(180,210,255,0.10);
+  --dp-txt-ok:     0 1px 0 rgba(0,0,0,0.80), 0 0 10px rgba(42,220,162,0.16);
+  --dp-txt-err:    0 1px 0 rgba(0,0,0,0.80), 0 0 10px rgba(255,111,132,0.16);
+  --dp-txt-warn:   0 1px 0 rgba(0,0,0,0.80), 0 0 10px rgba(245,191,103,0.16);
+
+  /* drop-shadow para ícones SVG */
+  --dp-icon:         drop-shadow(0 1px 2px rgba(0,0,0,0.70)) drop-shadow(0 2px 5px rgba(0,0,0,0.40));
+  --dp-icon-accent:  drop-shadow(0 1px 2px rgba(0,0,0,0.70)) drop-shadow(0 0 6px rgba(var(--accent-rgb),0.30));
+  --dp-icon-ok:      drop-shadow(0 1px 2px rgba(0,0,0,0.70)) drop-shadow(0 0 6px rgba(42,220,162,0.28));
+  --dp-icon-err:     drop-shadow(0 1px 2px rgba(0,0,0,0.70)) drop-shadow(0 0 6px rgba(255,111,132,0.28));
+  --dp-icon-warn:    drop-shadow(0 1px 2px rgba(0,0,0,0.70)) drop-shadow(0 0 6px rgba(245,191,103,0.28));
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ÍCONES — drop-shadow em todos os SVG da interface
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.ui-icon {
+  filter: var(--dp-icon);
+}
+
+/* Ícones de ação — glow accent */
+.sidebar-action--accent .ui-icon,
+.os-nav__item.is-active .ui-icon,
+.send-btn .ui-icon,
+.boost-btn .ui-icon {
+  filter: var(--dp-icon-accent);
+}
+
+/* Ícones de estado */
+.sidebar-action[data-blocker-active="true"] .ui-icon { filter: var(--dp-icon-accent); }
+.history-clear-btn .ui-icon                          { filter: var(--dp-icon-err); }
+
+/* Ícone da sidebar expandida */
+.action-sidebar__handle-icon {
+  filter: var(--dp-icon);
+}
+
+/* Ícones de nav/ações — base forte */
+.os-nav__icon .ui-icon,
+.sidebar-action__icon .ui-icon {
+  filter: var(--dp-icon);
+}
+.os-nav__item:hover .ui-icon,
+.sidebar-action:hover .ui-icon {
+  filter: var(--dp-icon-accent);
+}
+
+/* Ícones dentro dos botões de input */
+.input-tool-btn .ui-icon {
+  filter: var(--dp-icon);
+}
+.input-tool-btn:hover .ui-icon {
+  filter: var(--dp-icon-accent);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LOGO — hierarquia máxima
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.logo-glitch {
+  text-shadow: var(--dp-txt-hero);
+}
+.logo-devs {
+  text-shadow: var(--dp-txt-h2);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HEADER & SIDEBAR — Z1
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.header {
+  box-shadow: var(--dp-z1), 0 1px 0 rgba(var(--accent-rgb),0.06), inset 0 -1px 0 rgba(0,0,0,0.30);
+}
+
+.action-sidebar__panel {
+  box-shadow: var(--dp-z1), 1px 0 0 rgba(var(--accent-rgb),0.05), inset -1px 0 0 rgba(0,0,0,0.28);
+}
+
+.action-sidebar__group-label {
+  text-shadow: var(--dp-txt-label);
+  letter-spacing: 0.10em;
+}
+
+.sidebar-action__copy strong { text-shadow: var(--dp-txt-body); }
+.sidebar-action__copy small  { text-shadow: var(--dp-txt-dim);  }
+.os-nav__label               { text-shadow: var(--dp-txt-body); }
+.os-nav__meta                { text-shadow: var(--dp-txt-dim);  }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   STATUS CARDS — Z2
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.status-card {
+  box-shadow: var(--dp-z2), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.status-card__item {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.32), 0 6px 18px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.035);
+}
+.status-card__item[data-tone="success"] { box-shadow: var(--dp-glow-ok),   0 2px 10px rgba(0,0,0,0.28); }
+.status-card__item[data-tone="warning"] { box-shadow: var(--dp-glow-warn), 0 2px 10px rgba(0,0,0,0.28); }
+.status-card__item[data-tone="danger"]  { box-shadow: var(--dp-glow-err),  0 2px 10px rgba(0,0,0,0.28); }
+.status-card__item[data-tone="accent"]  { box-shadow: var(--dp-glow-accent),0 2px 10px rgba(0,0,0,0.28); }
+
+.status-card__label  { text-shadow: var(--dp-txt-label); }
+.status-card__value  { text-shadow: var(--dp-txt-h2);    }
+.status-card__meta   { text-shadow: var(--dp-txt-dim);   }
+.ops-pill__label     { text-shadow: var(--dp-txt-label); }
+.ops-pill__value     { text-shadow: var(--dp-txt-h1);    }
+.ops-pill__meta      { text-shadow: var(--dp-txt-dim);   }
+
+.ops-pill {
+  box-shadow: var(--dp-z2), 0 0 0 1px rgba(255,255,255,0.025);
+}
+.ops-pill[data-tone="accent"]  { box-shadow: var(--dp-z2), var(--dp-glow-accent); }
+.ops-pill[data-tone="success"] { box-shadow: var(--dp-z2), var(--dp-glow-ok);     }
+.ops-pill[data-tone="warning"] { box-shadow: var(--dp-z2), var(--dp-glow-warn);   }
+.ops-pill[data-tone="danger"]  { box-shadow: var(--dp-z2), var(--dp-glow-err);    }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   FUNDO DO HISTÓRICO — escurecido com sombra inset profunda
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.chat-scroll-shell {
+  background: rgba(4, 7, 13, 0.72) !important;
+  box-shadow:
+    var(--dp-z2),
+    inset 0  2px 12px rgba(0,0,0,0.50),
+    inset 0 -2px  8px rgba(0,0,0,0.36),
+    inset 2px 0   8px rgba(0,0,0,0.22),
+    inset -2px 0  8px rgba(0,0,0,0.22),
+    0 0 0 1px rgba(0,0,0,0.40);
+}
+
+/* Toolbar do histórico */
+.chat-log-toolbar {
+  text-shadow: var(--dp-txt-label);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.42), inset 0 -1px 0 rgba(0,0,0,0.28);
+  background: rgba(3, 5, 10, 0.70) !important;
+}
+
+.input-card {
+  box-shadow: var(--dp-z2), 0 0 0 1px rgba(var(--accent-rgb),0.08), inset 0 1px 0 rgba(255,255,255,0.025);
+}
+
+.status-panel {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.32), inset 0 -1px 0 rgba(0,0,0,0.30);
+}
+
+.project-state-banner {
+  box-shadow: var(--dp-z2), var(--dp-glow-accent), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MENSAGENS DO HISTÓRICO
+   ─────────────────────────────────────────────────────────────────────────
+   VOCÊ     → borda accent quente + fundo levemente mais quente
+              texto accent com borda preta pronunciada
+   SISTEMA  → borda fria azulada + fundo escuro neutro
+              texto frio com borda preta
+   SUCESSO  → borda verde + fundo esmeralda escuro
+   ERRO     → borda vermelha + fundo rouge escuro
+   AVISO    → borda âmbar
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Base de todas as mensagens — borda preta nas letras */
+.chat-entry__body,
+.system-log-entry__body {
+  box-shadow:
+    0 2px 8px  rgba(0,0,0,0.44),
+    0 6px 16px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.22);
+  color: var(--tx);
+  /* Borda preta no texto (text-stroke simulado via text-shadow) */
+  text-shadow: var(--dp-txt-body);
+}
+
+/* ── VOCÊ ─────────────────────────────────────────────────────────────── */
+.chat-entry--user .chat-entry__body {
+  border-color: rgba(var(--accent-rgb), 0.40);
+  background: rgba(var(--accent-rgb), 0.10) !important;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.44),
+    0 6px 20px rgba(0,0,0,0.28),
+    inset 0 1px 0 rgba(var(--accent-rgb),0.08),
+    inset 0 -1px 0 rgba(0,0,0,0.28),
+    0 0 0 1px rgba(var(--accent-rgb),0.06);
+  text-shadow: var(--dp-txt-user);
+}
+
+/* Badge "VOCÊ" */
+.role--user {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.44), var(--dp-glow-accent);
+  text-shadow: var(--dp-txt-label);
+}
+
+/* ── SISTEMA / ASSISTENTE ─────────────────────────────────────────────── */
+.chat-entry--system .chat-entry__body,
+.system-log-entry__body {
+  border-color: rgba(160, 190, 230, 0.22);
+  background: rgba(8, 14, 26, 0.70) !important;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.48),
+    0 6px 20px rgba(0,0,0,0.30),
+    inset 0 1px 0 rgba(160,190,230,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.30);
+  text-shadow: var(--dp-txt-system);
+}
+
+/* Badge SISTEMA/EXECUÇÃO/CONCLUÍDO/FALHA */
+.role--system,
+.system-log-entry__tone {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.44), 0 0 0 1px rgba(160,190,230,0.08);
+  text-shadow: var(--dp-txt-label);
+}
+
+/* ── SUCESSO / CONCLUÍDO ────────────────────────────────────────────── */
+.chat-entry--success .chat-entry__body,
+.system-log-entry--success .system-log-entry__body {
+  border-color: rgba(42, 220, 162, 0.40);
+  background: rgba(8, 24, 18, 0.78) !important;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.44),
+    var(--dp-glow-ok),
+    inset 0 1px 0 rgba(42,220,162,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.28);
+  text-shadow: var(--dp-txt-ok);
+}
+.role--success,
+.system-log-entry--success .system-log-entry__tone {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.44), var(--dp-glow-ok);
+  text-shadow: var(--dp-txt-ok);
+}
+
+/* ── ERRO / FALHA ────────────────────────────────────────────────────── */
+.chat-entry--error .chat-entry__body,
+.system-log-entry--error .system-log-entry__body {
+  border-color: rgba(255, 111, 132, 0.44);
+  background: rgba(24, 8, 12, 0.80) !important;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.44),
+    var(--dp-glow-err),
+    inset 0 1px 0 rgba(255,111,132,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.28);
+  text-shadow: var(--dp-txt-err);
+}
+.role--error,
+.system-log-entry--error .system-log-entry__tone {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.44), var(--dp-glow-err);
+  text-shadow: var(--dp-txt-err);
+}
+
+/* ── AVISO / EXECUÇÃO ────────────────────────────────────────────────── */
+.chat-entry--warning .chat-entry__body {
+  border-color: rgba(245, 191, 103, 0.42);
+  background: rgba(22, 16, 6, 0.78) !important;
+  box-shadow:
+    0 2px 10px rgba(0,0,0,0.44),
+    var(--dp-glow-warn),
+    inset 0 1px 0 rgba(245,191,103,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.28);
+  text-shadow: var(--dp-txt-warn);
+}
+
+/* Última mensagem — mais visível */
+.chat-entry:last-child .chat-entry__body,
+.system-log-entry:last-child .system-log-entry__body {
+  box-shadow:
+    0 4px 14px rgba(0,0,0,0.48),
+    0 10px 28px rgba(0,0,0,0.32),
+    0 0 0 1px rgba(var(--accent-rgb),0.06),
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -1px 0 rgba(0,0,0,0.30);
+}
+
+/* Horário das mensagens */
+.chat-entry__time,
+.system-log-entry__time {
+  text-shadow: var(--dp-txt-dim);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BOTÕES INTERATIVOS — Z3
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.sidebar-action {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.32), 0 3px 10px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.025);
+}
+.sidebar-action:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.38), 0 6px 18px rgba(0,0,0,0.24), var(--dp-glow-accent), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.sidebar-action--accent,
+.sidebar-action[data-blocker-active="true"] {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.36), var(--dp-glow-accent), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.os-nav__item {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.os-nav__item.is-active {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.32), var(--dp-glow-accent), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.os-nav__item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 1px rgba(var(--accent-rgb),0.12), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* Badges de estado */
+.badge {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.38), 0 0 0 1px rgba(var(--accent-rgb),0.08);
+  text-shadow: var(--dp-txt-label);
+}
+.badge--token-ok {
+  box-shadow: var(--dp-glow-ok), 0 1px 4px rgba(0,0,0,0.32);
+  text-shadow: var(--dp-txt-ok);
+}
+.badge--token-no {
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 1px 4px rgba(0,0,0,0.32);
+}
+
+/* theme-toggles */
+.theme-toggles {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.36), 0 0 0 1px rgba(var(--accent-rgb),0.10), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.theme-toggle,
+.fx-toggle {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.025);
+}
+.theme-toggle:hover,
+.fx-toggle:hover,
+.theme-toggle.is-open,
+.fx-toggle.is-open {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.34), var(--dp-glow-accent);
+}
+
+/* boost-btn */
+.boost-btn {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.34), var(--dp-glow-sec), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.boost-btn:hover {
+  box-shadow: 0 4px 14px rgba(0,0,0,0.38), 0 0 0 1px rgba(var(--secondary-rgb),0.32), 0 4px 22px rgba(var(--secondary-rgb),0.16), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.boost-label {
+  text-shadow: var(--dp-txt-label);
+}
+
+/* send-btn */
+.send-btn {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.38), var(--dp-glow-accent), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.send-btn:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.42), 0 0 0 1px rgba(var(--accent-rgb),0.36), 0 4px 24px rgba(var(--accent-rgb),0.20), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* input-tool-btns */
+.input-tool-btn {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.input-tool-btn:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.32), 0 0 0 1px rgba(var(--accent-rgb),0.14);
+}
+
+/* input-field */
+.input-field {
+  text-shadow: var(--dp-txt-body);
+}
+.input-field:focus {
+  box-shadow: 0 0 0 1px rgba(var(--accent-rgb),0.30), 0 0 0 3px rgba(var(--accent-rgb),0.08), 0 4px 16px rgba(var(--accent-rgb),0.12), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* chat-quick-actions */
+.chat-quick-actions__btn {
+  box-shadow: 0 1px 5px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.chat-quick-actions__btn:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.36), var(--dp-glow-accent);
+}
+
+/* Texto do chat-top-strip */
+.chat-top-strip__summary-main { text-shadow: var(--dp-txt-h2);    }
+.chat-top-strip__summary-meta { text-shadow: var(--dp-txt-label); }
+
+/* Placeholder do input */
+.input-field::placeholder {
+  text-shadow: none;
+  opacity: 0.5;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   OVERLAYS FLUTUANTES — Z4
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.theme-picker {
+  box-shadow: var(--dp-z4), 0 0 0 1px rgba(var(--accent-rgb),0.16), 0 0 40px rgba(var(--accent-rgb),0.06);
+}
+.theme-swatch {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.42), 0 0 0 1px rgba(255,255,255,0.08);
+}
+.theme-swatch:hover,
+.theme-swatch.is-selected,
+.theme-swatch[aria-pressed="true"] {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.44), 0 0 0 2px rgba(var(--accent-rgb),0.55), 0 0 12px rgba(var(--accent-rgb),0.22);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MODAIS CRÍTICOS — Z5
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.confirm-box {
+  box-shadow: var(--dp-z5), 0 0 0 1px rgba(var(--accent-rgb),0.18), 0 0 60px rgba(var(--accent-rgb),0.07);
+}
+.automation-overlay__frame {
+  box-shadow: var(--dp-z5), 0 0 0 1px rgba(var(--accent-rgb),0.20), 0 0 50px rgba(var(--accent-rgb),0.08);
+}
+.tutorial-card {
+  box-shadow: var(--dp-z5), 0 0 0 1px rgba(var(--accent-rgb),0.16), 0 0 56px rgba(var(--accent-rgb),0.06);
+}
+.modal-overlay > * {
+  box-shadow: var(--dp-z5), 0 0 0 1px rgba(var(--accent-rgb),0.14);
+}
+
+.automation-overlay__title  { text-shadow: var(--dp-txt-hero); }
+.automation-overlay__kicker { text-shadow: var(--dp-txt-label); }
+.tutorial-card__title       { text-shadow: var(--dp-txt-hero); }
+.tutorial-card__step-label  { text-shadow: var(--dp-txt-label); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   META / SIDEBAR RODAPÉ
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.action-sidebar__meta-row span   { text-shadow: var(--dp-txt-dim);   }
+.action-sidebar__meta-row strong { text-shadow: var(--dp-txt-label); }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ESTADOS TONAIS NOS VALORES
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.status-card__value--credits   { text-shadow: 0 1px 0 rgba(0,0,0,0.80), 0 0 12px rgba(var(--accent-rgb),0.30); }
+.status-card__value--highlight { text-shadow: var(--dp-txt-h1); }
+[data-tone="success"] .status-card__value { text-shadow: var(--dp-txt-ok);   }
+[data-tone="warning"] .status-card__value { text-shadow: var(--dp-txt-warn); }
+[data-tone="danger"]  .status-card__value { text-shadow: var(--dp-txt-err);  }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BOOST MODE — remove tudo para performance máxima
+   ══════════════════════════════════════════════════════════════════════════ */
+
+html[data-boost="1"] *,
+html[data-boost="1"] *::before,
+html[data-boost="1"] *::after {
+  box-shadow:  none !important;
+  text-shadow: none !important;
+  filter:      none !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  * { text-shadow: none !important; }
+}

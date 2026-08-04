@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-wl="name">RHYSCODE</title>
+  <!-- Premium typography (Inter + JetBrains Mono) — progressive enhancement; falls back to the CSS var stack offline -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="styles/sidepanel-modern.css">
+  <link rel="stylesheet" href="styles/depth.css">
+  <link rel="stylesheet" href="styles/sidepanel-cyber.css">  <!-- License overlay CSS moved to sidepanel.css -->
+  <link rel="stylesheet" href="styles/legacy-371.css">      <!-- 3.7.1: ajustes visuais — sempre por último na cascata -->
+</head>
+<body>
+<div class="app-shell">
+
+  <!-- ── HEADER ──────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__dots">
+        <div class="header__dots-row">
+          <div class="dot dot--close"></div>
+          <div class="dot dot--min"></div>
+          <div class="dot dot--max"></div>
+        </div>
+        <button id="autocycle-toggle-btn" class="autocycle-btn" type="button" title="Ciclo de Cores Autom&#225;tico">
+          <svg class="autocycle-icon autocycle-icon--off" width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="12" cy="12" r="6.6" stroke="currentColor" stroke-width="1.45" opacity="0.46"/>
+            <path d="M7.4 14.9C8.6 17.2 11.4 18.3 13.9 17.6C15.4 17.2 16.7 16.2 17.5 14.9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.26"/>
+            <circle cx="16.8" cy="8.8" r="1.1" fill="currentColor" opacity="0.48"/>
+            <circle cx="12" cy="12" r="2.2" fill="currentColor" opacity="0.16"/>
+          </svg>
+          <svg class="autocycle-icon autocycle-icon--on" width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="autocycle-core-grad" cx="50%" cy="50%" r="60%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.98"/>
+                <stop offset="38%" stop-color="#c7f9ff" stop-opacity="0.96"/>
+                <stop offset="100%" stop-color="#4d96ff" stop-opacity="0.78"/>
+              </radialGradient>
+              <linearGradient id="autocycle-orbit-grad" x1="4" y1="5" x2="20" y2="19" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ff6b6b"/>
+                <stop offset="28%" stop-color="#ffd93d"/>
+                <stop offset="56%" stop-color="#6bcb77"/>
+                <stop offset="100%" stop-color="#4d96ff"/>
+              </linearGradient>
+              <radialGradient id="autocycle-spark-grad" cx="50%" cy="50%" r="65%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#c77dff"/>
+              </radialGradient>
+            </defs>
+            <path d="M6 12C6 8.7 8.7 6 12 6C13.8 6 15.4 6.8 16.5 8.1" stroke="url(#autocycle-orbit-grad)" stroke-width="1.55" stroke-linecap="round"/>
+            <path d="M18 12C18 15.3 15.3 18 12 18C10.2 18 8.6 17.2 7.5 15.9" stroke="url(#autocycle-orbit-grad)" stroke-width="1.55" stroke-linecap="round" opacity="0.92"/>
+            <circle cx="12" cy="12" r="2.7" fill="url(#autocycle-core-grad)"/>
+            <circle cx="17.25" cy="8.65" r="1.45" fill="url(#autocycle-spark-grad)"/>
+          </svg>
+        </button>
+      </div>
+      <div class="header__controls">
+        <div class="theme-toggles">
+          <button class="fx-toggle fx-toggle--logout" id="logout-license-btn" title="Sair da licença atual e voltar para ativação">
+            <svg class="fx-toggle__svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span class="fx-toggle__copy">SAIR</span>
+          </button>
+          <button class="fx-toggle fx-toggle--tutorial" id="tutorial-btn" title="Guia rapido da extens&#227;o">
+            <span class="fx-toggle__glyph">?</span>
+            <span class="fx-toggle__copy">GUIA</span>
+          </button>
+
+          <div class="layout-menu-container" style="position:relative; display:inline-block;">
+            <button class="fx-toggle" id="layout-menu-btn" title="Configurações de Layout">
+              <span class="fx-toggle__copy">LAYOUT</span>
+              <svg style="margin-left:4px;" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="layout-dropdown-content">
+              <button class="theme-toggle" id="theme-toggle-1" title="Cor Prim&#225;ria">
+                <span class="theme-toggle__icon">&#9679;</span>
+              </button>
+              <button class="theme-toggle" id="theme-toggle-2" title="Cor Secund&#225;ria">
+                <span class="theme-toggle__icon">&#9679;</span>
+              </button>
+              <button class="mute-btn" id="mute-btn" title="Silenciar efeitos sonoros da extensao" aria-pressed="false">
+                <span class="mute-btn__icon">
+                  <svg id="mute-btn-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path id="mute-wave1" d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                    <path id="mute-wave2" d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                  </svg>
+                </span>
+                <span class="mute-btn__copy" id="mute-btn-copy">SOM</span>
+              </button>
+              <button class="theme-toggle lang-toggle-btn" id="lang-toggle-btn" type="button" title="Mudar para Inglês" aria-pressed="false">
+                <span class="lang-toggle-btn__copy" id="lang-toggle-copy">PT</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button id="boost-btn" class="boost-btn" title="BOOST MODE - Desempenho M&#225;ximo">
+          <svg class="boost-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2L3 14H10.5L11 22L21 10H13.5L13 2Z" fill="currentColor"/>
+          </svg>
+          <span class="boost-label">BOOST</span>
+        </button>
+
+        <!-- Plugar / desplugar a interface (3.7.1). O rótulo e a ação mudam
+             conforme onde este HTML está rodando: dentro da janela solta ou no
+             painel lateral do Chrome. Ver bindUiModeButton em sidepanel.js. -->
+        <button id="ui-mode-btn" class="boost-btn" style="padding: 0 8px !important; margin-left: 4px;" title="Soltar a extens&#227;o da lateral">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+            <line x1="15" y1="4" x2="15" y2="20"></line>
+          </svg>
+        </button>
+
+        <button id="download-project-btn" class="boost-btn" style="padding: 0 8px !important; margin-left: 4px;" title="Baixar Projeto Completo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- LOGO — Horizontal with Lightning Bolt -->
+    <div class="logo-container">
+      <!-- White label icon: hidden by default, shown via applyWhiteLabel() when icon_url exists -->
+      <img id="brand-icon" src="" alt="" style="display:none; width:38px; height:38px; border-radius:8px; object-fit:cover; margin-right:8px; vertical-align:middle;" />
+      <h1 class="logo-glitch" data-text="RHYSCODE" id="logo-glitch-text">
+        <span class="logo-glitch__letter" style="--i:0">R</span><span class="logo-glitch__letter" style="--i:1">H</span><span class="logo-glitch__letter" style="--i:2">Y</span><span class="logo-glitch__letter" style="--i:3">S</span><span class="logo-glitch__letter" style="--i:4">C</span><span class="logo-glitch__letter" style="--i:5">O</span><span class="logo-glitch__letter" style="--i:6">D</span><span class="logo-glitch__letter" style="--i:7">E</span>
+      </h1>
+      <span class="logo-devs" data-wl="sub">RHYS</span>
+    </div>
+  </header>
+
+  <div class="app-shell__body">
+    <!-- LEGACY-DOCK (3.7.1): o rail lateral saiu. A navega&#231;&#227;o virou um dock
+         horizontal e as a&#231;&#245;es viraram modal (#actions-modal). Os IDs originais
+         foram todos preservados, ent&#227;o os listeners de sidepanel.js continuam
+         valendo sem uma linha de mudan&#231;a. -->
+    <div class="lgy-dock" id="lgy-dock">
+      <nav class="os-nav os-nav--dock" id="os-nav" aria-label="Navega&#231;&#227;o principal">
+            <button class="os-nav__item is-active" id="nav-chat" data-page-target="chat" data-tooltip="Chat" type="button">
+              <span class="os-nav__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                  <circle cx="12" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                  <circle cx="15" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                </svg>
+              </span>
+              <span class="os-nav__label-wrap">
+                <span class="os-nav__label">Chat</span>
+                <span class="os-nav__meta">Workspace</span>
+              </span>
+            </button>
+            <!-- LEGACY-INTEGRACOES (3.7.1): bot&#227;o desligado junto com a aba.
+                 Descomentar este bloco E o da se&#231;&#227;o devolve tudo.
+            <button class="os-nav__item" id="nav-integrations" data-page-target="integrations" data-tooltip="Integra&#231;&#245;es" type="button">
+              <span class="os-nav__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M2 12h20"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </span>
+              <span class="os-nav__label-wrap">
+                <span class="os-nav__label">Integra&#231;&#245;es</span>
+                <span class="os-nav__meta">Cloud &amp; Supabase</span>
+              </span>
+            </button>
+            -->
+            <button class="os-nav__item os-nav__item--vip" id="nav-agente" data-page-target="agente" data-tooltip="Agente VIP" type="button" style="display:none;">
+              <span class="os-nav__icon">
+                <svg class="ui-icon ui-icon--nav ui-icon--vip-crown" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="22" height="22">
+                  <path d="M3 7.5 7.3 11 12 4l4.7 7L21 7.5l-1.4 9.2H4.4L3 7.5Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
+                  <path d="M5 20h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="os-nav__label-wrap">
+                <span class="os-nav__label">AGENTE VIP</span>
+                <span class="os-nav__meta">Premium</span>
+              </span>
+            </button>
+        <button class="os-nav__item" id="nav-skills" data-page-target="skills" data-tooltip="Skills" type="button">
+          <span class="os-nav__icon">
+            <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              <path d="M9 7h7"/>
+              <path d="M9 11h5"/>
+            </svg>
+          </span>
+          <span class="os-nav__label-wrap">
+            <span class="os-nav__label">Skills</span>
+            <span class="os-nav__meta">Regras da casa</span>
+          </span>
+        </button>
+      </nav>
+
+      <!-- Atalhos e A&#231;&#245;es ficam no pr&#243;prio dock: s&#227;o os dois destinos que o
+           usu&#225;rio abre o tempo todo. Os IDs seguem os originais. -->
+      <button class="os-nav__item os-nav__item--tool" id="shortcuts-toggle-btn" type="button" title="Atalhos de Prompt" data-tooltip="Atalhos de prompt">
+        <span class="os-nav__icon">
+          <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.8" width="16" height="16">
+            <path d="M13 2L3 14h9l-1 8 11-12h-9l1-8z"/>
+          </svg>
+        </span>
+        <span class="os-nav__label-wrap">
+          <span class="os-nav__label">Atalhos</span>
+          <span class="os-nav__meta">Prompts guiados</span>
+        </span>
+      </button>
+
+      <button class="os-nav__item os-nav__item--tool" id="dock-actions-btn" type="button" title="A&#231;&#245;es" data-tooltip="A&#231;&#245;es do projeto" aria-haspopup="dialog" aria-expanded="false">
+        <span class="os-nav__icon">
+          <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+            <circle cx="12" cy="5" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="19" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="os-nav__label-wrap">
+          <span class="os-nav__label">A&#231;&#245;es</span>
+          <span class="os-nav__meta">Projeto e p&#225;gina</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- MODAL DE A&#199;&#213;ES (3.7.1) — mesma base .lgy-modal dos Atalhos. -->
+    <div class="lgy-modal" id="actions-modal" role="dialog" aria-modal="true" aria-label="A&#231;&#245;es">
+      <div class="lgy-modal__card">
+        <header class="lgy-modal__head">
+          <div class="lgy-modal__heading">
+            <span class="lgy-modal__eyebrow">A&#231;&#245;es</span>
+            <strong class="lgy-modal__title">O que voc&#234; quer fazer agora</strong>
+            <p class="lgy-modal__sub">Cada bot&#227;o age no projeto aberto no Lovable.</p>
+          </div>
+          <button class="lgy-modal__close" id="actions-modal-close" type="button" title="Fechar" aria-label="Fechar a&#231;&#245;es">&#10005;</button>
+        </header>
+        <div class="lgy-modal__body">
+          <div id="sidebar-buttons" class="action-sidebar__rail">
+            <button class="sidebar-action" id="new-project-btn" title="Novo Projeto" data-tooltip="Criar novo projeto">
+              <span class="sidebar-action__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                  <path d="M14 2v6h6"/>
+                  <line x1="12" y1="11" x2="12" y2="17"/>
+                  <line x1="9" y1="14" x2="15" y2="14"/>
+                </svg>
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Novo projeto</strong>
+                <small>Cria e abre no Lovable</small>
+              </span>
+            </button>
+
+            <button class="sidebar-action" id="hide-badge-btn" title="Remover marca d'&#225;gua" data-tooltip="Remover marca d'&#225;gua">
+              <span class="sidebar-action__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Marca d'&#225;gua</strong>
+                <small>Ocultar no projeto</small>
+              </span>
+            </button>
+
+            <!-- 3.7.1: nasce INATIVO. A trava do chat nativo virou opt-in — o
+                 estado real vem do storage logo no boot (_applyBlockerVisual). -->
+            <button class="sidebar-action sidebar-action--state" id="chat-blocker-btn" title="Bloqueador do Chat Nativo - clique para ativar" data-blocker-active="false" data-tooltip="Bloqueio do chat nativo" aria-label="Bloqueador do chat inativo">
+              <span class="sidebar-action__icon sidebar-action__icon--stack">
+                <svg id="chat-blocker-icon-on" class="ui-icon ui-icon--nav" viewBox="0 0 24 24" style="display:none;" aria-hidden="true" fill="none" stroke-width="1.8" width="16" height="16">
+                  <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+                </svg>
+                <svg id="chat-blocker-icon-off" class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.8" width="16" height="16">
+                  <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
+                  <path d="M8 11V7a4 4 0 0 1 8 0"/>
+                </svg>
+                <span id="chat-blocker-dot" style="display:none;"></span>
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Chat nativo</strong>
+                <small>Liberado</small>
+              </span>
+            </button>
+
+            <!-- LEGACY-DIALOG-ATIVO (3.7.1): recurso desligado — a deteccao nunca
+                 ficou confiavel e a tela "nenhum dialog ativo" so poluia a interface.
+                 O subsistema inteiro (sidepanel.js, content.js, pageHook.js e
+                 dispatchToolDialogAnswer no proxy) continua intacto: sem este botao
+                 o IIFE do responder sai no guard `if (!btn || !modal) return`.
+                 Para religar: descomentar este bloco E o modal la embaixo.
+            <button class="sidebar-action sidebar-action--dialog" id="tool-dialog-btn" title="Responder dialog da Lovable" data-tooltip="Responder perguntas da IA" data-dialog-active="false">
+              <span class="sidebar-action__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  <circle cx="9" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                  <circle cx="12" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                  <circle cx="15" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+                </svg>
+                <span id="tool-dialog-dot" style="position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.18);box-shadow:none;transition:background 0.3s,box-shadow 0.3s;"></span>
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Responder IA</strong>
+                <small id="tool-dialog-btn-hint">Aguardando dialog</small>
+              </span>
+            </button>
+            -->
+
+            <!-- LEGACY-RELOAD-PAGINA (3.7.1): removido a pedido — recarregar a aba
+                 e algo que o proprio navegador ja faz (F5) e ocupava espaco no dock.
+                 Handler em sidepanel.js sai sozinho no guard `if (!reloadBtn) return`.
+            <button class="sidebar-action sidebar-action--reload" id="reload-page-btn" title="Recarregar página do Lovable (F5)" data-tooltip="Recarregar página (F5)">
+              <span class="sidebar-action__icon">
+                <svg class="ui-icon ui-icon--nav" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke-width="1.7" width="16" height="16">
+                  <path d="M23 4v6h-6"/>
+                  <path d="M1 20v-6h6"/>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/>
+                  <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/>
+                </svg>
+
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Reload</strong>
+                <small>Recarregar página</small>
+              </span>
+            </button>
+            -->
+            <!-- BUG REPORT BUTTON — desativado temporariamente
+            <button class="sidebar-action sidebar-action--report-anchor" id="bug-report-btn" title="Reportar bug" data-tooltip="Reportar bug">
+              <span class="sidebar-action__icon">
+                <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 18h6"></path>
+                  <path d="M10 21h4"></path>
+                  <path d="M12 3.25a5.75 5.75 0 0 0-3.77 10.09c.53.47.96 1.03 1.26 1.66h5.02c.3-.63.73-1.19 1.26-1.66A5.75 5.75 0 0 0 12 3.25Z"></path>
+                </svg>
+              </span>
+              <span class="sidebar-action__copy">
+                <strong>Reportar bug</strong>
+                <small>Falar no WhatsApp</small>
+              </span>
+            </button>
+            -->
+          </div>
+          <!-- 3.7.1: Projeto/Status/Hora sairam do modal a pedido — a mesma
+               informacao ja aparece na faixa de contexto do chat. Os IDs
+               continuam existindo (ocultos) porque sidepanel.js escreve neles
+               em varios pontos; sem eles seriam tres guardas a menos por acaso. -->
+          <div class="action-sidebar__meta-list" hidden>
+            <div class="action-sidebar__meta-row"><span>Projeto</span><strong id="sb-project-side">&#8212;</strong></div>
+            <div class="action-sidebar__meta-row"><span>Status</span><strong id="sb-status-side">&#9679; READY</strong></div>
+            <div class="action-sidebar__meta-row"><span>Hora</span><strong id="sb-time-side">00:00:00</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="os-main">
+      <section class="os-page os-page--chat is-active" id="page-chat" data-page="chat">
+        <div class="page-shell page-shell--chat">
+          <div class="ops-command-bar" id="ops-command-bar" aria-live="polite"></div>
+
+          <div class="page-shell__workspace">
+            <div class="page-shell__chat-stack">
+              <div class="status-panel" id="status-panel">
+                <div class="chat-top-strip status-panel__bar">
+                  <span id="token-badge" class="badge badge--token-no">
+                    <span class="badge__dot"></span>
+                    <span id="token-badge-text">INATIVO</span>
+                  </span>
+                  <div class="chat-top-strip__summary">
+                    <strong class="chat-top-strip__summary-main" id="top-state-main">Lovable fechado</strong>
+                    <span class="chat-top-strip__summary-meta" id="top-state-meta">Sem contexto ativo</span>
+                  </div>
+                  <div class="status-card__item status-card__item--launch" id="project-launch-metric" data-tone="accent">
+                    <button id="project-state-cta" class="status-card__launch-btn" type="button">Abrir lovable</button>
+                  </div>
+                </div>
+                <div class="status-card">
+                  <div class="status-card__item" id="context-metric" data-tone="neutral">
+                    <div class="status-card__info">
+                      <span class="status-card__label">Contexto</span>
+                      <div class="status-card__value-row">
+                        <span class="connection__dot" id="conn-dot"></span>
+                        <span class="status-card__value" id="m-context">Offline</span>
+                      </div>
+                      <span class="status-card__meta" id="m-context-detail">Lovable fechado</span>
+                    </div>
+                  </div>
+                  <div class="status-card__item" id="execution-metric" data-tone="neutral">
+                    <div class="status-card__info">
+                      <span class="status-card__label">Execu&#231;&#227;o</span>
+                      <span class="status-card__value status-card__value--highlight" id="m-status">Idle</span>
+                      <span class="status-card__meta" id="m-status-detail">Aguardando contexto</span>
+                    </div>
+                  </div>
+                  <!-- LEGACY-TRIO (3.7.1): Licenca, Execucoes e Sessao vivem numa
+                       linha propria de 3 colunas fixas. Como a janela agora e
+                       redimensionavel, o grid antigo quebrava esses tres cartoes
+                       em duas linhas em qualquer largura menor. -->
+                  <div class="status-card__item" id="lic-expiry-bar" data-tone="neutral" data-trio="1">
+                    <div class="status-card__info">
+                      <span class="status-card__label">Licen&#231;a</span>
+                      <span class="status-card__value" id="lic-expiry-value">--</span>
+                      <span class="status-card__meta" id="lic-expiry-detail">Sem prazo detectado</span>
+                    </div>
+                  </div>
+                  <div class="status-card__item" id="executions-metric" data-tone="neutral" data-trio="1">
+                    <div class="status-card__info">
+                      <span class="status-card__label">Execu&#231;&#245;es</span>
+                      <span class="status-card__value" id="m-count">0</span>
+                      <span class="status-card__meta" id="m-count-detail">Sess&#227;o atual</span>
+                    </div>
+                  </div>
+                  <div class="status-card__item" id="session-metric" data-tone="neutral" data-trio="1">
+                    <div class="status-card__info">
+                      <span class="status-card__label">Sess&#227;o</span>
+                      <span class="status-card__value" id="m-time">00:00</span>
+                      <span class="status-card__meta" id="m-time-detail">Chrome ativo</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <section class="project-state-banner" id="project-state-banner" hidden aria-live="polite">
+                <div class="project-state-banner__copy">
+                  <span class="project-state-banner__eyebrow" id="project-state-eyebrow">Projeto offline</span>
+                  <strong class="project-state-banner__title" id="project-state-title">Abra um projeto ativo para continuar</strong>
+                  <p class="project-state-banner__text" id="project-state-text">Conecte a aba do Lovable para liberar envio, execucao e acoes do painel.</p>
+                </div>
+                <div class="project-state-banner__state">
+                  <span class="project-state-banner__pill" id="project-state-pill">Aguardando</span>
+                  <span class="project-state-banner__detail" id="project-state-detail">Sem contexto ativo</span>
+                </div>
+              </section>
+
+              <div class="chat-quick-actions" id="chat-quick-actions" aria-label="Acoes rapidas do projeto">
+                <button class="chat-quick-actions__btn chat-quick-actions__btn--secondary" id="quick-action-shortcuts" type="button">Atalhos</button>
+                <button class="chat-quick-actions__btn chat-quick-actions__btn--secondary" id="quick-action-new-project" type="button">Novo projeto</button>
+                <button class="chat-quick-actions__btn chat-quick-actions__btn--secondary" id="quick-action-hide-badge" type="button">Marca d'agua</button>
+                <button class="chat-quick-actions__btn chat-quick-actions__btn--secondary" id="quick-action-chat-blocker" type="button">Chat nativo</button>
+                <button class="chat-quick-actions__btn chat-quick-actions__btn--secondary" id="quick-action-theme" type="button">Aparencia</button>
+              </div>
+
+              <div class="chat-scroll-shell" id="chat-scroll-shell">
+                <div class="chat-log-toolbar">
+                  <div class="history-stream-head">
+                    <div class="history-stream-head__copy">
+                      <span class="history-stream-head__kicker">Sess&#227;o atual</span>
+                      <strong class="history-stream-head__title">Hist&#243;rico da sess&#227;o</strong>
+                      <span class="history-stream-head__preview" id="system-log-preview">Pronto para acompanhar</span>
+                    </div>
+                    <span class="history-stream-head__count" id="system-log-meta">0</span>
+                  </div>
+                  <button id="history-clear-btn" class="history-clear-btn" type="button" title="Limpar histórico da sessão" aria-label="Limpar histórico da sessão">
+                    <svg class="ui-icon history-clear-btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 7.25h14"></path>
+                      <path d="M9.25 4.5h5.5"></path>
+                      <path d="M8 7.25v10a1.75 1.75 0 0 0 1.75 1.75h4.5A1.75 1.75 0 0 0 16 17.25v-10"></path>
+                      <path d="M10 10.25v5.5"></path>
+                      <path d="M14 10.25v5.5"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="chat-log" id="chat-log">
+                  <div class="empty-state" id="empty-state">
+                    <div class="empty-state__panel">
+                      <p class="empty-state__msg">
+                        <a href="#" id="open-lovable-link" class="link-lovable">Abrir Lovable.dev e começar a construir</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="render-suggestions"></div>
+
+              <div class="input-area" id="input-area">
+                <div id="attachments-preview" class="attachments-preview"></div>
+
+                <div class="input-card">
+                  <div class="input-row">
+                    <div class="input-tools input-tools--left">
+                      <div class="input-tool-wrap" style="position:relative;">
+                        <button id="attach-menu-btn" class="input-tool-btn" title="Anexar m&#237;dia">
+                          <svg class="ui-icon ui-icon--tool" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                          </svg>
+                        </button>
+                        <div id="attach-popover" class="attach-popover">
+                          <button id="popover-btn-photo" class="attach-popover__item">
+                            <span class="attach-popover__icon">&#128248;</span>
+                            <span>Fotos</span>
+                          </button>
+                          <button id="popover-btn-video" class="attach-popover__item">
+                            <span class="attach-popover__icon">&#127909;</span>
+                            <span>V&#237;deos</span>
+                          </button>
+                          <button id="popover-btn-audio" class="attach-popover__item">
+                            <span class="attach-popover__icon">&#127925;</span>
+                            <span>&#193;udio</span>
+                          </button>
+                          <button id="popover-btn-files" class="attach-popover__item">
+                            <span class="attach-popover__icon">&#128206;</span>
+                            <span>Arquivos</span>
+                          </button>
+                        </div>
+                        <input type="file" id="image-upload" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml,image/bmp,image/avif,image/tiff,image/x-icon,.png,.jpg,.jpeg,.webp,.gif,.svg,.bmp,.avif,.tiff,.ico" multiple style="display:none;">
+                        <input type="file" id="video-upload" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska,video/ogg,video/3gpp,video/x-flv,.mp4,.webm,.mov,.avi,.mkv,.ogv,.3gp,.flv" multiple style="display:none;">
+                        <input type="file" id="audio-upload" accept="audio/mpeg,audio/wav,audio/ogg,audio/mp4,audio/aac,audio/flac,audio/x-m4a,audio/webm,.mp3,.wav,.ogg,.m4a,.aac,.flac,.wma,.opus,.webm" multiple style="display:none;">
+                        <input type="file" id="file-upload" accept=".pdf,.txt,.csv,.json,.xml,.md,.html,.css,.js,.ts,.tsx,.jsx,.py,.java,.go,.rs,.sql,.yaml,.yml,.toml,.env,.log,.zip,.tar,.gz,.7z,.rar,.har,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.rtf,.odt,.ods,.odp,.sh,.rb,.php,.c,.cpp,.h,.hpp,.swift,.kt,.dart,.r,.m,.pl,.lua,.bat,.ps1,.dockerfile,.gitignore,.prettierrc,.eslintrc,.babelrc,.graphql,.proto,.wasm,.map,.lock,.ini,.cfg,.conf,.reg,.diff,.patch" multiple style="display:none;">
+                      </div>
+
+                      <div class="voice-boost-stack">
+                        <button id="voice-btn" class="input-tool-btn input-tool-btn--voice" title="Falar e converter em texto">
+                          <div id="voice-btn-ring" class="voice-ring"></div>
+                          <svg id="voice-icon-svg" class="ui-icon ui-icon--tool" viewBox="0 0 24 24" style="position:relative;z-index:2;" aria-hidden="true">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="22"></line>
+                          </svg>
+                        </button>
+
+
+                      </div>
+                    </div>
+
+                    <textarea class="input-field" id="input-field" placeholder="Cole a foto (Ctrl+V) ou descreva o que deseja criar..." rows="3" maxlength="49995" spellcheck="false"></textarea>
+
+                    <div class="input-tools input-tools--right">
+                      <label class="refine-toggle-wrapper" id="refine-toggle-label" title="Lapidação IA — melhora precisão e contexto do seu prompt antes do envio">
+                        <input type="checkbox" id="refine-toggle" style="display:none;">
+                        <div class="refine-track" id="refine-track">
+                          <div class="refine-thumb" id="refine-thumb">
+                            <svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" id="refine-icon-check" style="color:rgba(0,0,0,0.8);opacity:0;transition:opacity 0.2s;" aria-hidden="true">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </div>
+                        </div>
+                        <span class="refine-label">AI</span>
+                      </label>
+
+                      <!-- Publish action dormant: native Lovable publish is the reliable/free path. -->
+                      <!--
+                      <button id="publish-btn" class="publish-launch-btn publish-launch-btn--inline" title="Publicar projeto" aria-label="Publicar projeto">
+                        <svg class="ui-icon ui-icon--tool" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 3.5 16.75 8.25"></path>
+                          <path d="M12 3.5 7.25 8.25"></path>
+                          <path d="M12 4v11"></path>
+                          <path d="M6.5 13.5v4A2.5 2.5 0 0 0 9 20h6a2.5 2.5 0 0 0 2.5-2.5v-4"></path>
+                        </svg>
+                      </button>
+                      -->
+
+                      <button class="send-btn" id="send-btn" title="Enviar (Enter)">
+                        <svg class="ui-icon ui-icon--send" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M20.75 4.25 10.4 14.6"></path>
+                          <path d="M20.75 4.25 13.65 20.2l-3.25-5.35-5.35-3.25 15.7-7.35Z"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="input-meta">
+                    <div class="input-hint-wrap">
+                      <span class="input-hint"></span>
+                    </div>
+                    <div class="input-meta__right">
+                      <!-- LEGACY-MODO-PLANO (3.7.1): retirado para limpar a hierarquia
+                           visual do composer. A logica inteira segue em sidepanel.js
+                           (bloco LEGACY-MODO-PLANO) e se auto-desliga sem este botao.
+                      <button id="plan-mode-btn" class="plan-mode-btn" title="Modo Plano — 1° envia o plano, 2° executa" aria-pressed="false"><span id="plan-mode-label">PLANO</span></button>
+                      -->
+                      <button id="clear-btn" class="clear-btn" title="Limpar histórico">&#10005; limpar</button>
+                      <span class="input-chars" id="char-count">0 / 50000</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEGACY-INTEGRACOES (3.7.1): aba desligada a pedido do dono — ocupava
+           espaco sem entregar valor. NADA foi apagado: o markup inteiro esta
+           abaixo, so comentado (comentarios internos viraram [[ ]] porque
+           comentario HTML nao aninha). integrations.js continua carregado e
+           sai sozinho no guard `if (!page) return`. Para religar: remover as
+           duas linhas de marcacao daqui e o comentario do botao no dock. -->
+
+      <!--
+      [[ PAGINA INTEGRACOES ]]
+      <section class="os-page os-page--integrations" id="page-integrations" data-page="integrations" hidden>
+        <div class="page-shell page-shell--integrations" style="padding:10px 10px 6px; overflow-y:auto; height:100%; display:flex; flex-direction:column; gap:7px; box-sizing:border-box;">
+
+          [[ HEADER ROW ]]
+          <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+            <h2 style="margin:0; font-size:14px; font-weight:800; color:var(--tx-base); letter-spacing:0.04em; text-transform:uppercase; flex:1; font-family:var(--font-display,monospace);">Integra&ccedil;&otilde;es</h2>
+            <button id="intg-refresh-btn" type="button" style="flex-shrink:0; background:linear-gradient(135deg,rgba(90,160,255,0.22),rgba(90,160,255,0.08)); border:1px solid rgba(90,160,255,0.32); color:#cfe0ff; border-radius:7px; cursor:pointer; font-size:10px; font-weight:700; letter-spacing:0.03em; padding:5px 10px; text-transform:uppercase; white-space:nowrap; transition:all 0.2s;">VERIFICAR</button>
+          </div>
+
+          [[ CONTEXTO (workspace + projeto) ]]
+          <div id="intg-project-card" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:7px 10px; display:flex; gap:12px; align-items:center; flex-shrink:0;">
+            <div style="display:flex; flex-direction:column; gap:1px; flex:1; min-width:0;">
+              <div style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">Workspace</div>
+              <div id="intg-work-name" style="font-size:11px; font-weight:700; color:var(--tx-base); font-family:var(--font-display,monospace); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&mdash;</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:1px; flex:1; min-width:0;">
+              <div style="font-size:9px; color:var(--tx-muted); text-transform:uppercase; letter-spacing:0.06em; font-weight:600;">Projeto</div>
+              <div id="intg-proj-id" style="font-size:11px; font-weight:700; color:var(--tx-base); font-family:monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&mdash;</div>
+            </div>
+            <span id="intg-work-id" style="display:none;"></span>
+          </div>
+
+          [[ SUMMARY DE VERIFICACAO ]]
+          <div id="intg-verify-summary" style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 10px; color:var(--tx-muted); font-size:10.5px; line-height:1.45; flex-shrink:0;">
+            Clique em VERIFICAR para checar se este projeto j&aacute; tem banco conectado.
+          </div>
+
+          [[ SECAO 1: LOVABLE CLOUD ]]
+          <div class="intg-card" id="intg-cloud-card" style="background:linear-gradient(145deg,rgba(30,35,45,0.85),rgba(20,25,30,0.5)); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:10px; position:relative; overflow:hidden; flex-shrink:0;">
+            [[ Header do card ]]
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:7px;">
+              <span style="font-size:10px; font-weight:800; color:#8ab4ff;">LC</span>
+              <span style="font-size:12px; font-weight:800; color:#fff; letter-spacing:0.01em;">Lovable Cloud</span>
+              <span id="intg-cloud-status" style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 7px; border-radius:4px;"></span>
+            </div>
+            [[ Ambiente + Regiao inline ]]
+            <div style="display:flex; gap:16px; font-size:10.5px; margin-bottom:7px;">
+              <div><span style="color:var(--tx-muted);">Ambiente </span><span id="intg-cloud-managed" style="color:var(--tx-base); font-weight:600;">&mdash;</span></div>
+              <div><span style="color:var(--tx-muted);">Regi&atilde;o </span><span id="intg-cloud-region" style="color:var(--tx-base); font-weight:600;">&mdash;</span></div>
+            </div>
+            [[ Supabase integrado sub-card ]]
+            <div id="intg-cloud-supa-section" style="padding-top:7px; border-top:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex; align-items:center; gap:5px; margin-bottom:5px;">
+                <span style="font-size:10px; font-weight:800; color:#4ade80;">DB</span>
+                <span style="font-size:10.5px; font-weight:700; color:rgba(74,222,128,0.92);">Supabase Integrado</span>
+                <span id="intg-supa-status" style="margin-left:auto; font-size:9px; font-weight:700; padding:1px 6px; border-radius:3px;"></span>
+              </div>
+              <div style="display:flex; gap:12px; font-size:10px; flex-wrap:wrap; margin-bottom:4px;">
+                <div><span style="color:var(--tx-muted);">Ref </span><span id="intg-supa-ref" style="color:var(--tx-base); font-family:monospace; font-weight:600;">&mdash;</span></div>
+                <div style="display:flex; align-items:center; gap:2px;"><span style="color:var(--tx-muted);">Key </span><span id="intg-supa-anonkey" style="color:var(--tx-base); font-family:monospace; font-weight:600;">&mdash;</span><button id="intg-toggle-key" style="background:none; border:none; cursor:pointer; padding:0 2px; color:var(--tx-muted); font-size:10px; opacity:0.5; line-height:1;">ver</button></div>
+              </div>
+              <div style="font-size:9px; color:var(--tx-muted); background:rgba(0,0,0,0.18); padding:3px 6px; border-radius:3px; font-family:monospace; word-break:break-all;">
+                <span id="intg-supa-url">&mdash;</span>
+              </div>
+            </div>
+            [[ Botão ativar cloud ]]
+            <div id="intg-cloud-connect-area" style="margin-top:8px;">
+              <button id="intg-auto-connect-btn" style="width:100%; background:linear-gradient(135deg,rgba(100,140,255,0.15),rgba(100,140,255,0.05)); border:1px solid rgba(100,140,255,0.25); color:#8ab4ff; border-radius:6px; padding:7px; font-size:10.5px; font-weight:700; cursor:pointer; transition:all 0.25s; display:flex; align-items:center; justify-content:center; gap:5px;">
+                <span>+</span> ATIVAR LOVABLE CLOUD
+              </button>
+              <p id="intg-connect-hint" style="font-size:9px; color:var(--tx-muted); text-align:center; margin:4px 0 0; opacity:0.7;">Verifique antes de ativar</p>
+            </div>
+          </div>
+
+          [[ SECAO 2: SUPABASE EXTERNO ]]
+          <div class="intg-card" id="intg-ext-supa-card" style="background:linear-gradient(145deg,rgba(30,55,40,0.35),rgba(20,30,25,0.15)); border:1px solid rgba(74,222,128,0.13); border-radius:10px; padding:10px; position:relative; overflow:hidden; flex-shrink:0;">
+            <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+              <span style="font-size:10px; font-weight:800; color:#4ade80;">EXT</span>
+              <span style="font-size:12px; font-weight:800; color:#4ade80; letter-spacing:0.01em;">Supabase Externo</span>
+              <span id="intg-ext-supa-status" style="margin-left:auto; font-size:9px; font-weight:700; padding:2px 6px; border-radius:3px;"></span>
+            </div>
+            <p style="font-size:10px; color:var(--tx-muted); line-height:1.35; margin:0 0 7px; opacity:0.85;">
+              Funcionalidade temporariamente em manuten&ccedil;&atilde;o enquanto o novo fluxo do Supabase &eacute; revisado.
+            </p>
+
+            <div id="intg-ext-connect-area">
+              <button id="intg-ext-connect-btn" style="width:100%; background:linear-gradient(135deg,rgba(74,222,128,0.12),rgba(74,222,128,0.04)); border:1px solid rgba(74,222,128,0.22); color:#4ade80; border-radius:6px; padding:7px; font-size:10.5px; font-weight:700; cursor:pointer; transition:all 0.25s; display:flex; align-items:center; justify-content:center; gap:5px;">
+                FUNCIONALIDADE EM MANUTEN&Ccedil;&Atilde;O
+              </button>
+            </div>
+
+            <div id="intg-ext-wizard" style="display:none;">
+              [[ Step 1 ]]
+              <div id="intg-ext-step1" style="display:none;">
+                <div style="background:rgba(255,200,80,0.08); border:1px solid rgba(255,200,80,0.15); border-radius:6px; padding:8px;">
+                  <p style="font-size:10.5px; font-weight:700; color:#ffc850; margin:0 0 4px;">Precisa estar logado no Supabase</p>
+                  <p style="font-size:9.5px; color:var(--tx-muted); margin:0 0 6px; line-height:1.35;">
+                    Sem conta? <a href="https://supabase.com/dashboard/sign-up" target="_blank" style="color:#4ade80; text-decoration:underline;">Criar conta</a> (confirme o e-mail)
+                  </p>
+                  <div style="margin-bottom:8px; padding:4px 6px; background:rgba(255,200,80,0.15); border-left:2px solid #ffc850; border-radius:3px;">
+                    <span style="font-size:9px; color:#ffc850; font-weight:600;">ATEN&Ccedil;&Atilde;O: M&Aacute;X 4 ORGS</span><br>
+                    <span style="font-size:8.5px; color:var(--tx-muted);">Ter muitos workspaces pode causar falhas na detec&ccedil;&atilde;o. Limpe orgs vazias.</span>
+                  </div>
+                  <div style="display:flex; gap:6px;">
+                    <button id="intg-ext-step1-ok" style="flex:1; background:rgba(74,222,128,0.15); border:1px solid rgba(74,222,128,0.3); color:#4ade80; border-radius:5px; padding:6px; font-size:10px; font-weight:700; cursor:pointer;">J&Aacute; ESTOU LOGADO</button>
+                    <button id="intg-ext-step1-cancel" style="flex:0.5; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--tx-muted); border-radius:5px; padding:6px; font-size:9.5px; cursor:pointer;">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+              [[ Step 2 ]]
+              <div id="intg-ext-step2" style="display:none;">
+                <div style="background:rgba(100,140,255,0.06); border:1px solid rgba(100,140,255,0.15); border-radius:6px; padding:8px;">
+                  <p style="font-size:10.5px; font-weight:700; color:#8ab4ff; margin:0 0 3px;">Confirmar conex&atilde;o</p>
+                  <p style="font-size:9.5px; color:var(--tx-muted); margin:0 0 6px; line-height:1.35;">Criar org + projeto no Supabase e vincular ao Lovable.</p>
+                  <div style="display:flex; gap:6px;">
+                    <button id="intg-ext-step2-yes" style="flex:1; background:rgba(74,222,128,0.15); border:1px solid rgba(74,222,128,0.25); color:#4ade80; border-radius:5px; padding:6px; font-size:10px; font-weight:700; cursor:pointer;">SIM, CONECTAR</button>
+                    <button id="intg-ext-step2-no" style="flex:0.5; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--tx-muted); border-radius:5px; padding:6px; font-size:9.5px; cursor:pointer;">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+              [[ Step 3 ]]
+              <div id="intg-ext-step3" style="display:none;">
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:9px;">
+                  <div style="display:flex; align-items:center; gap:7px; margin-bottom:5px;">
+                    <span id="intg-ext-spinner" style="display:inline-block; width:12px; height:12px; border:2px solid rgba(74,222,128,0.2); border-top-color:#4ade80; border-radius:50%; animation:spin-refresh 0.8s linear infinite; flex-shrink:0;"></span>
+                    <span id="intg-ext-progress-label" style="font-size:10.5px; font-weight:600; color:var(--tx-base);">Conectando...</span>
+                  </div>
+                  <div id="intg-ext-progress-detail" style="font-size:9.5px; color:var(--tx-muted); line-height:1.4;">Iniciando pipeline...</div>
+                </div>
+              </div>
+              [[ Step 4 ]]
+              <div id="intg-ext-step4" style="display:none;">
+                <div id="intg-ext-result-box" style="border-radius:8px; padding:9px;">
+                  <p id="intg-ext-result-text" style="font-size:10.5px; font-weight:600; margin:0 0 6px;"></p>
+                  <button id="intg-ext-result-close" style="width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--tx-muted); border-radius:5px; padding:5px; font-size:9.5px; cursor:pointer; transition:all 0.2s;">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          [[ STATUS FOOTER ]]
+          <div style="text-align:center; flex-shrink:0; padding-bottom:2px;">
+            <span id="intg-last-update" style="font-size:9.5px; color:var(--tx-muted); font-family:monospace; display:inline-flex; align-items:center; gap:4px;"><span style="display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--tx-muted); opacity:0.4;"></span> Aguardando detec&ccedil;&atilde;o...</span>
+          </div>
+
+        </div>
+      </section>
+      -->
+
+      <!-- PAGINA AGENTE VIP -->
+      <section class="os-page os-page--agente" id="page-agente" data-page="agente" hidden>
+        <div class="agentev-root" id="agentev-root"><!-- preenchido por ui/agent-vip.js --></div>
+      </section>
+
+      <!-- PAGINA SKILLS (3.7.1) -->
+      <section class="os-page os-page--skills" id="page-skills" data-page="skills" hidden>
+        <div class="page-shell lgy-skills">
+          <div class="lgy-skills__intro">
+            <strong class="lgy-skills__title">Skills do seu projeto</strong>
+            <p class="lgy-skills__sub">Uma skill &#233; um documento que a IA da Lovable l&#234; ANTES de fazer qualquer coisa. Escreva a regra uma vez e ela vale para sempre naquele projeto.</p>
+          </div>
+
+          <div class="lgy-skills__setup">
+            <button class="lgy-skills__cta" id="skill-scaffold-btn" type="button">Criar a estrutura de skills</button>
+            <small>Cria a pasta <code>skills/</code> no projeto e ensina a IA a consultar antes de executar. Uma vez por projeto.</small>
+          </div>
+
+          <div class="lgy-skills__compose">
+            <div class="lgy-skills__tabs" role="tablist">
+              <button class="lgy-skills__tab is-active" id="skill-tab-text" type="button" role="tab">Escrever</button>
+              <button class="lgy-skills__tab" id="skill-tab-library" type="button" role="tab">Biblioteca</button>
+              <button class="lgy-skills__tab" id="skill-tab-mine" type="button" role="tab">Minhas skills</button>
+            </div>
+
+            <div class="lgy-skills__pane is-active" id="skill-pane-text">
+              <textarea id="skill-draft" class="lgy-skills__draft" rows="8" spellcheck="false"
+                placeholder="Escreva, cole ou arraste um arquivo .md/.txt aqui. Ex.: 'toda tela nova tem que ter estado de carregando, estado vazio e mensagem de erro sem c&#243;digo t&#233;cnico...'"></textarea>
+              <div class="lgy-skills__draftbar">
+                <span class="lgy-skills__count" id="skill-draft-count">0 caracteres</span>
+                <div class="lgy-skills__draftactions">
+                  <button class="lgy-skills__mic" id="skill-mic-btn" type="button" title="Ditar">&#127908; Ditar</button>
+                  <button class="lgy-skills__polish" id="skill-refine-btn" type="button">Lapidar com IA</button>
+                  <button class="lgy-skills__save" id="skill-save-btn" type="button">Salvar skill</button>
+                </div>
+              </div>
+              <p class="lgy-skills__hint" id="skill-status" role="status"></p>
+            </div>
+
+            <div class="lgy-skills__pane" id="skill-pane-library" hidden>
+              <div class="lgy-skills__list" id="skill-library-list"></div>
+            </div>
+
+            <div class="lgy-skills__pane" id="skill-pane-mine" hidden>
+              <div class="lgy-skills__list" id="skill-mine-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="automation-overlay" id="automation-overlay" hidden>
+    <div class="automation-overlay__frame">
+      <span class="automation-overlay__kicker">EXECUCAO</span>
+      <strong class="automation-overlay__title">Pipeline em andamento</strong>
+      <p class="automation-overlay__copy" id="automation-status-text">Acompanhe o progresso em tempo real e interrompa quando quiser.</p>
+      <div class="automation-overlay__meta">
+        <span id="automation-status-meta">Preparando pipeline</span>
+        <span id="automation-countdown">00:00</span>
+      </div>
+      <div class="automation-overlay__bar"><span class="automation-overlay__bar-fill" id="automation-progress-bar"></span></div>
+      <button class="automation-overlay__abort" id="automation-cancel-btn" type="button">Interromper execu&#231;&#227;o</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__left">
+      <span class="footer__brand" data-wl="team">RHYSCODE</span>
+      <span class="footer__version">v3.7.1 CORE</span>
+      <span class="footer__signal" id="footer-signal" data-tone="neutral"><span class="footer__signal-dot"></span><span id="footer-signal-text">SHELL EST&#193;VEL</span></span>
+    </div>
+    <div class="footer__ticker" aria-live="polite">
+      <span class="footer__verse" id="footer-verse"></span>
+    </div>
+    <div class="footer__right">
+      <span class="footer__project" id="sb-project">&#8212;</span>
+      <span class="footer__status" id="sb-status">&#9679; READY</span>
+      <span class="footer__time" id="sb-time">00:00:00</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ==== TUTORIAL OVERLAY ==================================================================================================== -->
+<div id="tutorial-overlay" class="tutorial-overlay">
+  <div id="tutorial-card" class="tutorial-card">
+    <div class="tutorial-card__progress-bar"><div id="tut-progress" class="tutorial-card__progress-fill"></div></div>
+    <div id="tut-content" class="tutorial-card__content"></div>
+    <div class="tutorial-card__footer">
+      <button id="tut-prev" class="tutorial-card__btn tutorial-card__btn--ghost">&#8592; VOLTAR</button>
+      <div id="tut-dots" class="tutorial-card__dots"></div>
+      <button id="tut-next" class="tutorial-card__btn tutorial-card__btn--accent">PR&#211;XIMO &#8594;</button>
+    </div>
+    <div class="tutorial-card__skip-wrap"><button id="tut-skip" class="tutorial-card__skip">Pular tutorial &#10005;</button></div>
+  </div>
+</div>
+
+<div id="vip-intro-overlay" class="vip-intro-overlay" aria-hidden="true">
+  <section class="vip-intro-card" role="dialog" aria-modal="true" aria-labelledby="vip-intro-title">
+    <!-- 3.7.1: este aviso era a apresentação do AGENTE VIP (coroa dourada,
+         "CONHEÇA SEU NOVO MODO DE PRODUZIR" / "Você pede. O Agente entrega." e
+         um carrossel de 3 telas). Virou a apresentação das SKILLS: uma tela só,
+         sem coroa e sem carrossel. Os IDs foram mantidos porque sidepanel.js
+         escreve neles. Textos antigos guardados aqui para religar se precisar. -->
+    <button id="vip-intro-close" class="vip-intro-close" type="button" aria-label="Fechar apresentação">&#215;</button>
+    <p class="vip-intro-kicker">NOVIDADE DA VERS&#195;O</p>
+    <h2 id="vip-intro-title">Skills</h2>
+    <p id="vip-intro-copy" class="vip-intro-copy">Ensine uma regra uma vez e a IA da Lovable passa a seguir ela em tudo que fizer no seu projeto.</p>
+    <div id="vip-intro-stage" class="vip-intro-stage" aria-live="polite"></div>
+    <div id="vip-intro-dots" class="vip-intro-dots" aria-label="Progresso" hidden></div>
+    <div class="vip-intro-actions">
+      <button id="vip-intro-skip" class="vip-intro-skip" type="button">AGORA N&#195;O</button>
+      <button id="vip-intro-next" class="vip-intro-next" type="button">ABRIR AS SKILLS &#8594;</button>
+    </div>
+  </section>
+</div>
+
+<!-- Theme Picker Modal 1 -->
+
+<div class="theme-picker" id="theme-picker-1" style="display:none">
+  <div class="theme-picker__grid">
+    <button class="theme-swatch" data-theme="cyber"    title="Cyber Blue"   style="--sw:#00aaff"></button>
+    <button class="theme-swatch" data-theme="emerald"  title="Emerald"      style="--sw:#00dd88"></button>
+    <button class="theme-swatch" data-theme="crimson"  title="Crimson"      style="--sw:#ff4455"></button>
+    <button class="theme-swatch" data-theme="violet"   title="Violet"       style="--sw:#a855f7"></button>
+    <button class="theme-swatch" data-theme="amber"    title="Amber"        style="--sw:#ffaa00"></button>
+    <button class="theme-swatch" data-theme="rose"     title="Rose"         style="--sw:#f472b6"></button>
+    <button class="theme-swatch" data-theme="ice"      title="Ice"          style="--sw:#67e8f9"></button>
+    <button class="theme-swatch" data-theme="phantom"  title="Phantom"      style="--sw:#94a3b8"></button>
+    <button class="theme-swatch" data-theme="snow"     title="Snow"         style="--sw:#dce6ff"></button>
+    <button class="theme-swatch" data-theme="matrix"   title="Matrix"       style="--sw:#00ff78"></button>
+    <button class="theme-swatch" data-theme="coral"    title="Coral Fire"   style="--sw:#ff6e4a"></button>
+    <button class="theme-swatch" data-theme="teal"     title="Deep Teal"    style="--sw:#00ccaa"></button>
+    <button class="theme-swatch" data-theme="indigo"   title="Indigo"       style="--sw:#6677ff"></button>
+    <button class="theme-swatch" data-theme="lime"     title="Neon Lime"    style="--sw:#aaff22"></button>
+    <button class="theme-swatch" data-theme="copper"   title="Copper"       style="--sw:#ff9944"></button>
+    <button class="theme-swatch" data-theme="plasma"   title="Plasma"       style="--sw:#ff22cc"></button>
+  </div>
+</div>
+
+<!-- Theme Picker Modal 2 -->
+<div class="theme-picker" id="theme-picker-2" style="display:none;">
+  <div class="theme-picker__grid">
+    <button class="theme-swatch swatch-sec swatch-sec--mono" data-theme-sec="mono" title="Monocrom&#225;tico (Desativar 2&#170; Cor)">
+      <span class="swatch-sec__mark">&#10005;</span>
+    </button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="neon"   title="Neon Pink"  style="--sw:#ff00ff"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="solar"  title="Solar Orange" style="--sw:#ff8800"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="toxic"  title="Toxic Lime" style="--sw:#aaff00"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="frost"  title="Frost Blue" style="--sw:#00ddff"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="synth"  title="Synth Purple" style="--sw:#cc00ff"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="magma"  title="Magma Red"  style="--sw:#ff2200"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="gold"   title="Pure Gold"  style="--sw:#ffd700"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="silver" title="Silver"     style="--sw:#c0d0e8"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="volt"   title="Volt"       style="--sw:#ddff00"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="black"  title="Black Glass" style="--sw:#0d1118"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="mint"   title="Mint Glow" style="--sw:#37f0c2"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="orchid" title="Orchid" style="--sw:#d071ff"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="ember"  title="Ember" style="--sw:#ff6b4a"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="aqua"   title="Aqua Glow" style="--sw:#00ffee"></button>
+    <button class="theme-swatch swatch-sec" data-theme-sec="blush"  title="Blush" style="--sw:#ff7799"></button>
+  </div>
+</div>
+
+
+<!-- Custom Confirm Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-card" id="modal-card">
+    <p class="modal-card__msg" id="modal-msg">Limpar hist&#243;rico?</p>
+    <div class="modal-card__actions">
+      <button class="modal-btn modal-btn--cancel" id="modal-cancel">Cancelar</button>
+      <button class="modal-btn modal-btn--confirm" id="modal-confirm">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TOOL DIALOG MODAL — LEGACY-DIALOG-ATIVO (3.7.1): desativado ==========
+     Removido da interface junto com o botao do dock. O markup fica preservado
+     aqui dentro (comentarios internos viraram [[ ]] porque comentario HTML nao
+     aninha). Para religar: restaurar os [[ ]] para <!- - - -> e descomentar
+     este bloco e o botao #tool-dialog-btn la em cima.
+
+<div id="tool-dialog-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.78); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); align-items:center; justify-content:center;">
+  [[ Painel: sem dialog ativo ]]
+  <div id="tool-dialog-empty" style="background:var(--bg-1,#0e1117); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:28px 24px 24px; width:320px; max-width:92vw; box-shadow:0 0 60px rgba(0,0,0,0.6); display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center;">
+    <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <div style="font-family:var(--font-display,monospace); font-size:11px; font-weight:700; color:rgba(255,255,255,0.3); letter-spacing:0.12em; text-transform:uppercase;">Nenhum dialog ativo</div>
+    <div style="font-size:12px; color:var(--tx-muted,#8899aa); line-height:1.65; max-width:260px;">Nenhuma mensagem dispon&#237;vel para ser respondida.<br><br>Volte quando a Lovable abrir uma <strong style="color:rgba(255,255,255,0.5);">pergunta</strong>, <strong style="color:rgba(255,255,255,0.5);">integra&#231;&#227;o</strong> ou solicita&#231;&#227;o de <strong style="color:rgba(255,255,255,0.5);">senha</strong> no chat.</div>
+    <button id="tool-dialog-empty-close" style="margin-top:6px; background:none; border:1px solid rgba(255,255,255,0.12); color:var(--tx-muted,#8899aa); border-radius:8px; padding:9px 22px; cursor:pointer; font-size:12px; font-family:var(--font-ui,inherit); transition:border-color 0.2s,color 0.2s;">Fechar</button>
+  </div>
+  [[ Painel: dialog com perguntas ]]
+  <div id="tool-dialog-panel" style="display:none; background:var(--bg-1,#0e1117); border:1px solid rgba(var(--accent-rgb,0,184,255),0.3); border-radius:14px; padding:24px 22px 20px; width:340px; max-width:92vw; max-height:82vh; overflow-y:auto; box-shadow:0 0 50px rgba(var(--accent-rgb,0,184,255),0.15); flex-direction:column; gap:16px;">
+    <div style="display:flex; align-items:center; justify-content:space-between;">
+      <span id="tool-dialog-title" style="font-family:var(--font-display,monospace); font-size:13px; font-weight:700; color:var(--accent-bright,#00b8ff); letter-spacing:0.08em; text-transform:uppercase;">Perguntas da IA</span>
+      <button id="tool-dialog-close" style="background:none; border:none; color:var(--tx-muted,#8899aa); cursor:pointer; font-size:20px; line-height:1; padding:2px 6px;">&times;</button>
+    </div>
+    <div id="tool-dialog-summary" style="display:none; font-size:11px; line-height:1.5; color:var(--tx-muted,#8899aa); white-space:pre-wrap;"></div>
+    <div id="tool-dialog-fields" style="display:flex; flex-direction:column; gap:14px;"></div>
+    <div id="tool-dialog-actions" style="display:flex; flex-direction:column; gap:8px; padding-top:6px;">
+      <div id="tool-dialog-action-row" style="display:flex; gap:8px; align-items:center;">
+        <button id="tool-dialog-skip" style="display:none; flex-shrink:0; background:none; border:1px solid rgba(255,255,255,0.10); color:var(--tx-muted,#8899aa); border-radius:8px; padding:8px 12px; cursor:pointer; font-size:11px; font-family:var(--font-ui,inherit);">Pular</button>
+        <button id="tool-dialog-submit" style="flex:1; background:linear-gradient(135deg,rgba(var(--accent-rgb,0,184,255),0.85),rgba(var(--secondary-rgb,100,100,255),0.65)); border:none; color:#fff; border-radius:8px; padding:9px 16px; cursor:pointer; font-size:12px; font-weight:700; font-family:var(--font-ui,inherit); letter-spacing:0.03em;">Confirmar e Enviar</button>
+      </div>
+      <div id="tool-dialog-credit-hint" style="display:none; text-align:right; font-size:9.5px; color:rgba(0,220,130,0.75); padding-right:2px;">✅ Resposta gratuita — enviada pelo sistema sem consumir créditos</div>
+    </div>
+    <div id="tool-dialog-status" style="font-size:11px; color:var(--tx-muted,#8899aa); text-align:center; display:none; padding-top:4px;"></div>
+  </div>
+</div>
+====== fim do TOOL DIALOG MODAL desativado ====== -->
+
+<!-- BUG REPORT MODAL — desativado temporariamente
+<div class="modal-overlay bug-report-overlay" id="bug-report-overlay">
+  <div class="bug-report-card" id="bug-report-card" role="dialog" aria-modal="true" aria-labelledby="bug-report-title">
+    <div class="bug-report-card__header">
+      <div class="bug-report-card__heading">
+        <span class="bug-report-card__eyebrow">Auto Report</span>
+        <strong class="bug-report-card__title" id="bug-report-title">Reportar bug</strong>
+      </div>
+      <button class="bug-report-card__close" id="bug-report-close" type="button" aria-label="Fechar report de bug">&times;</button>
+    </div>
+
+    <div class="bug-report-card__body">
+      <p class="bug-report-card__intro">
+        Escolha a area, selecione a funcao afetada e escreva o problema do seu jeito. A extensão monta a mensagem e abre seu WhatsApp pronto para envio.
+      </p>
+
+      <div class="bug-report-card__section">
+        <span class="bug-report-card__label">Area</span>
+        <div class="bug-report-card__chips" id="bug-report-area-list"></div>
+      </div>
+
+      <div class="bug-report-card__section">
+        <span class="bug-report-card__label">Subarea</span>
+        <div class="bug-report-card__chips bug-report-card__chips--secondary" id="bug-report-subarea-list"></div>
+      </div>
+
+      <div class="bug-report-card__section bug-report-card__section--form">
+        <span class="bug-report-card__label">Mensagem</span>
+        <div class="bug-report-card__form">
+          <input class="bug-report-card__input" id="bug-report-title-input" type="text" maxlength="120" placeholder="Titulo do problema" />
+          <input class="bug-report-card__input" id="bug-report-subtitle-input" type="text" maxlength="140" placeholder="Subtitulo ou funcao afetada" />
+          <textarea class="bug-report-card__textarea" id="bug-report-body-input" rows="5" maxlength="1200" placeholder="Descreva o erro, o que voce tentou fazer e o que deveria acontecer."></textarea>
+        </div>
+      </div>
+
+      <div class="bug-report-card__summary" id="bug-report-summary">
+        Selecione uma area e uma subarea para montar o modelo da mensagem.
+      </div>
+    </div>
+
+    <div class="bug-report-card__footer">
+      <div class="bug-report-card__actions">
+        <button class="modal-btn modal-btn--cancel" id="bug-report-cancel" type="button">Cancelar</button>
+        <button class="bug-report-card__send" id="bug-report-send" type="button" disabled>Abrir WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<script src="jszip.min.js"></script>
+<script src="sidepanel.js"></script>
+<script src="integrations.js"></script>
+<script src="ui/agent-vip.js"></script>
+<script src="ui/skills.js"></script>
+
+<!-- ====== LICENSE OVERLAY ====== -->
+<div id="lic-overlay">
+  <div class="lic-grid"></div>
+  <div class="lic-aurora"></div>
+
+  <div class="lic-card">
+
+    <div class="lic-hrow">
+      <div class="lic-logo">
+        <span class="lic-logo-name" data-wl="name">RHYSCODE</span>
+        <span class="lic-logo-sub" data-wl="sub">RHYS</span>
+      </div>
+      <div class="lic-tog-row">
+        <button class="lic-toggle" id="lic-tog-pri" title="Cor Prim&#225;ria">1</button>
+        <button class="lic-toggle" id="lic-tog-sec" title="Cor Secund&#225;ria">2</button>
+        <div class="lic-sep"></div>
+        <button class="lic-toggle" id="lic-tog-fx" title="Efeitos">FX</button>
+        <div class="lic-picker" id="lic-pri-picker">
+          <div class="lic-picker-title">Cor Prim&#225;ria</div>
+          <div class="lic-swatch-grid">
+            <button class="lic-swatch active" data-lpri="cyber"   data-lc="0,184,255"   style="background:linear-gradient(135deg,#00b8ff,#005588)" title="Cyber"></button>
+            <button class="lic-swatch"        data-lpri="emerald" data-lc="0,238,153"   style="background:linear-gradient(135deg,#00ee99,#006644)" title="Emerald"></button>
+            <button class="lic-swatch"        data-lpri="crimson" data-lc="255,60,100"  style="background:linear-gradient(135deg,#ff3c64,#880022)" title="Crimson"></button>
+            <button class="lic-swatch"        data-lpri="violet"  data-lc="180,80,255"  style="background:linear-gradient(135deg,#b450ff,#550099)" title="Violet"></button>
+            <button class="lic-swatch"        data-lpri="amber"   data-lc="255,180,0"   style="background:linear-gradient(135deg,#ffb400,#885500)" title="Amber"></button>
+            <button class="lic-swatch"        data-lpri="rose"    data-lc="255,100,180" style="background:linear-gradient(135deg,#ff64b4,#882255)" title="Rose"></button>
+            <button class="lic-swatch"        data-lpri="ice"     data-lc="100,220,255" style="background:linear-gradient(135deg,#64dcff,#2255aa)" title="Ice"></button>
+            <button class="lic-swatch"        data-lpri="phantom" data-lc="150,140,200" style="background:linear-gradient(135deg,#968cc8,#332255)" title="Phantom"></button>
+            <button class="lic-swatch"        data-lpri="snow"    data-lc="220,230,255" style="background:linear-gradient(135deg,#dce6ff,#8899cc)" title="Snow"></button>
+            <button class="lic-swatch"        data-lpri="matrix"  data-lc="0,255,120"   style="background:linear-gradient(135deg,#00ff78,#004422)" title="Matrix"></button>
+          </div>
+        </div>
+        <div class="lic-picker" id="lic-sec-picker">
+          <div class="lic-picker-title">Cor Secund&#225;ria</div>
+          <div class="lic-swatch-grid">
+            <button class="lic-swatch active" data-lsec="gray"   data-ls="136,141,160" style="background:linear-gradient(135deg,#a0a8be,#5a6080)" title="Gray"></button>
+            <button class="lic-swatch"        data-lsec="black"  data-ls="30,32,40"    data-ls-mode="outline" style="background:linear-gradient(135deg,#1e2028,#0a0b0f);border:2px solid rgba(255,255,255,.12)" title="Black (outline)"></button>
+            <button class="lic-swatch"        data-lsec="neon"   data-ls="255,47,209"  style="background:linear-gradient(135deg,#ff2fd1,#660099)" title="Neon"></button>
+            <button class="lic-swatch"        data-lsec="solar"  data-ls="255,110,0"   style="background:linear-gradient(135deg,#ff6e00,#cc4400)" title="Solar"></button>
+            <button class="lic-swatch"        data-lsec="toxic"  data-ls="160,255,0"   style="background:linear-gradient(135deg,#a0ff00,#228800)" title="Toxic"></button>
+            <button class="lic-swatch"        data-lsec="frost"  data-ls="0,220,255"   style="background:linear-gradient(135deg,#00dcff,#00aacc)" title="Frost"></button>
+            <button class="lic-swatch"        data-lsec="synth"  data-ls="100,60,255"  style="background:linear-gradient(135deg,#643cff,#2200cc)" title="Synth"></button>
+            <button class="lic-swatch"        data-lsec="gold"   data-ls="255,210,0"   style="background:linear-gradient(135deg,#ffd200,#cc8800)" title="Gold"></button>
+            <button class="lic-swatch"        data-lsec="silver" data-ls="180,195,220" style="background:linear-gradient(135deg,#b4c3dc,#6677aa)" title="Silver"></button>
+            <button class="lic-swatch"        data-lsec="volt"   data-ls="220,255,0"   style="background:linear-gradient(135deg,#dcff00,#889900)" title="Volt"></button>
+          </div>
+        </div>
+        <div class="lic-picker" id="lic-fx-picker">
+          <div class="lic-picker-title">Efeitos Visuais</div>
+          <button class="lic-picker-opt active" data-lfx="none"><span class="lic-picker-opt-icon">&#8857;</span> Nenhum</button>
+          <button class="lic-picker-opt"        data-lfx="pulse"><span class="lic-picker-opt-icon">&#10024;</span> Pulse</button>
+          <button class="lic-picker-opt"        data-lfx="glitch"><span class="lic-picker-opt-icon">&#9889;</span> Glitch</button>
+          <button class="lic-picker-opt"        data-lfx="wave"><span class="lic-picker-opt-icon">&#127754;</span> Wave</button>
+        </div>
+        <div class="lic-picker-backdrop" id="lic-backdrop" style="display:none"></div>
+      </div>
+    </div>
+
+    <div class="lic-welcome">
+      <span class="lic-welcome__eyebrow">ACESSO PROFISSIONAL</span>
+      <h1>Seu workspace.<br><strong>Pronto para produzir.</strong></h1>
+      <p>Ative sua licença ou experimente agora. A validação acontece em tempo real e respeita a identidade desta distribuição.</p>
+    </div>
+
+    <div class="lic-label">Sistema</div>
+    <div class="lic-sys-row">
+      <div class="lic-sys-item"><div class="lic-sys-dot"></div><span>Operacional</span></div>
+      <div class="lic-sys-item"><div class="lic-sys-dot lic-sys-dot--sec"></div><span>Validado</span></div>
+      <div class="lic-sys-item"><div class="lic-sys-dot lic-sys-dot--mix"></div><span>Seguro</span></div>
+    </div>
+
+    <div class="lic-label">Chave de Acesso</div>
+    <div class="lic-input-wrap">
+      <input class="lic-input" id="lic-o-key" type="text" placeholder="RHYSCODE-REV-TOKEN-30D" maxlength="50" autocomplete="off" spellcheck="false" data-wl-placeholder="name-upper" />
+    </div>
+    <div class="lic-status" id="lic-o-status">
+      <div class="lic-spinner" id="lic-spinner"></div>
+      <span id="lic-status-text">Insira sua chave para acessar</span>
+    </div>
+
+    <div class="lic-actions">
+      <button class="lic-btn" id="lic-o-btn">AUTENTICAR E ENTRAR &#x2192;</button>
+      <button class="lic-trial-btn" id="lic-trial-btn" type="button">
+        <span>COMEÇAR TESTE GRATUITO</span>
+        <small>25 min &#183; sem cadastro</small>
+      </button>
+    </div>
+
+    <div class="lic-micro">
+      <div class="lic-micro-item">&#128274; Licen&#231;a vinculada ao dispositivo</div>
+      <div class="lic-micro-item">&#128272; Comunica&#231;&#227;o criptografada</div>
+      <div class="lic-micro-item">&#9889; Valida&#231;&#227;o em tempo real</div>
+    </div>
+    <hr class="lic-div">
+    <div class="lic-footer"><span data-wl="team">RHYSCODE</span> &#183; Acesso Restrito &#183; v3.7.1</div>
+
+  </div>
+</div>
+
+<script src="wl-fallback.js"></script>
+<script src="ui/sidepanel-viewmodel.js"></script>
+<script src="ui/sidepanel-shell.js"></script>
+<script src="license.js"></script>
+
+</body>
+</html>

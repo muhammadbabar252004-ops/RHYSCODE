@@ -1,0 +1,50 @@
+html[data-shell-rev="302"] {
+  --legacy-sidebar-collapsed: 44px;
+  --legacy-sidebar-expanded: 92px;
+  --legacy-sidebar-visual-offset: calc(var(--legacy-sidebar-collapsed) + 4px);
+  --shell-bg: #0a0d12;
+  --shell-surface-0: rgba(14, 17, 22, 0.96);
+  --shell-surface-1: rgba(18, 22, 28, 0.95);
+  --shell-surface-2: rgba(22, 27, 34, 0.94);
+  --shell-border-soft: rgba(255, 255, 255, 0.075);
+  --shell-border-strong: rgba(var(--accent-rgb), 0.14);
+  --shell-text-0: #f3f5f8;
+  --shell-text-1: #c4ccd8;
+  --shell-text-2: #8b95a4;
+  --shell-shadow-lg: 0 14px 32px rgba(0, 0, 0, 0.24);
+  --shell-shadow-md: 0 8px 18px rgba(0, 0, 0, 0.15);
+  --shell-radius-xl: 20px;
+  --shell-radius-lg: 15px;
+  --shell-radius-md: 12px;
+  --shell-radius-sm: 8px;
+  --shell-edge-hairline: rgba(255, 255, 255, 0.045);
+  --shell-edge-glow: rgba(var(--accent-rgb), 0.08);
+  --shell-panel-shadow: 0 10px 24px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  --shell-card-shadow: 0 6px 14px rgba(0, 0, 0, 0.13), inset 0 1px 0 rgba(255, 255, 255, 0.022);
+  --shell-control-shadow: 0 3px 10px rgba(0, 0, 0, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  --shell-focus-shadow: 0 0 0 1px rgba(var(--accent-rgb), 0.14), 0 6px 16px rgba(var(--accent-rgb), 0.08);
+  --shell-speed-fast: 160ms;
+  --shell-speed: 220ms;
+  --shell-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+}
+
+html[data-shell-rev="302"] body.dock-pinned {
+  --legacy-sidebar-visual-offset: calc(var(--legacy-sidebar-expanded) + 4px);
+}
+
+html[data-shell-rev="302"] body {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(var(--accent-rgb), 0.07), transparent 30%),
+    radial-gradient(circle at 84% 14%, rgba(255, 255, 255, 0.03), transparent 20%),
+    linear-gradient(180deg, #07090d 0%, #0b0f15 100%);
+  color: var(--shell-text-0);
+}
+
+html[data-shell-rev="302"] .app-shell,
+html[data-shell-rev="302"] .os-main,
+html[data-shell-rev="302"] .page-shell,
+html[data-shell-rev="302"] .page-shell__workspace,
+html[data-shell-rev="302"] .page-shell__chat-stack {
+  min-width: 0;
+}
